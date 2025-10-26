@@ -1,0 +1,4002 @@
+<!DOCTYPE html>
+<html lang="hi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>सांवरिया जी ज्वैलर्स - Software</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        padding: 10px;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        background: white;
+        border-radius: 15px;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+
+      .header {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .header h1 {
+        font-size: 28px;
+        margin-bottom: 5px;
+      }
+
+      .header p {
+        font-size: 14px;
+        opacity: 0.9;
+      }
+
+      .nav-buttons {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+        padding: 20px;
+        background: #f8f9fa;
+      }
+
+      .nav-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 18px;
+        border-radius: 10px;
+        font-size: 16px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: transform 0.2s, box-shadow 0.2s;
+        touch-action: manipulation;
+      }
+
+      .nav-btn:active {
+        transform: scale(0.95);
+      }
+
+      .nav-btn:hover {
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      }
+
+      .section {
+        display: none;
+        padding: 20px;
+      }
+
+      .section.active {
+        display: block;
+      }
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+      .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 8px;
+        font-size: 16px;
+        color: #333;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 14px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 16px;
+        transition: border-color 0.3s;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .btn {
+        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+        color: white;
+        border: none;
+        padding: 16px 30px;
+        border-radius: 8px;
+        font-size: 18px;
+        font-weight: bold;
+        cursor: pointer;
+        width: 100%;
+        margin-top: 10px;
+        touch-action: manipulation;
+      }
+
+      .btn:active {
+        transform: scale(0.98);
+      }
+
+      .btn-danger {
+        background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+      }
+
+      .btn-secondary {
+        background: linear-gradient(135deg, #757f9a 0%, #d7dde8 100%);
+        color: #333;
+      }
+
+      .table-container {
+        overflow-x: auto;
+        margin-top: 20px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        min-width: 600px;
+      }
+
+      table th,
+      table td {
+        padding: 12px;
+        text-align: left;
+        border-bottom: 1px solid #ddd;
+      }
+
+      table th {
+        background: #667eea;
+        color: white;
+        font-weight: bold;
+      }
+
+      table tr:hover {
+        background: #f8f9fa;
+      }
+
+      .invoice-items {
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        padding: 15px;
+        margin-bottom: 20px;
+        background: #f8f9fa;
+      }
+
+      .invoice-item {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 2fr;
+        gap: 10px;
+        margin-bottom: 10px;
+        padding: 10px;
+        background: white;
+        border-radius: 5px;
+      }
+
+      .invoice-item input,
+      .invoice-item select {
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        font-size: 14px;
+      }
+
+      .remove-item-btn {
+        background: #dc3545;
+        color: white;
+        border: none;
+        padding: 8px 15px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 14px;
+      }
+
+      .add-item-btn {
+        background: #28a745;
+        color: white;
+        border: none;
+        padding: 12px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+        margin-bottom: 15px;
+      }
+
+      .summary-box {
+        background: #e9ecef;
+        padding: 20px;
+        border-radius: 8px;
+        margin-top: 20px;
+      }
+
+      .summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 8px 0;
+        font-size: 16px;
+      }
+
+      .summary-row.total {
+        font-size: 20px;
+        font-weight: bold;
+        color: #667eea;
+        border-top: 2px solid #667eea;
+        padding-top: 12px;
+        margin-top: 10px;
+      }
+
+      .card {
+        background: white;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+
+      .card h3 {
+        color: #667eea;
+        margin-bottom: 10px;
+      }
+
+      .alert {
+        padding: 15px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        font-weight: bold;
+      }
+
+      .alert-success {
+        background: #d4edda;
+        color: #155724;
+        border: 1px solid #c3e6cb;
+      }
+
+      .alert-danger {
+        background: #f8d7da;
+        color: #721c24;
+        border: 1px solid #f5c6cb;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 10px;
+      }
+
+      .action-buttons button {
+        flex: 1;
+        padding: 8px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+      }
+
+      .btn-edit {
+        background: #ffc107;
+        color: #000;
+      }
+
+      .btn-delete {
+        background: #dc3545;
+        color: white;
+      }
+
+      .btn-view {
+        background: #17a2b8;
+        color: white;
+      }
+
+      @media print {
+        body * {
+          visibility: hidden;
+        }
+        .print-invoice,
+        .print-invoice * {
+          visibility: visible;
+        }
+        .print-invoice {
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 100%;
+        }
+        .no-print {
+          display: none !important;
+          visibility: hidden !important;
+        }
+      }
+
+      .print-invoice {
+        padding: 30px;
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .print-header {
+        text-align: center;
+        border-bottom: 3px solid #000;
+        padding-bottom: 15px;
+        margin-bottom: 20px;
+      }
+
+      .print-header h1 {
+        font-size: 32px;
+        color: #667eea;
+        margin-bottom: 5px;
+      }
+
+      .print-header p {
+        font-size: 14px;
+        margin: 3px 0;
+      }
+
+      .invoice-info {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin-bottom: 20px;
+      }
+
+      .print-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 20px 0;
+      }
+
+      .print-table th,
+      .print-table td {
+        border: 1px solid #000;
+        padding: 10px;
+        text-align: left;
+      }
+
+      .print-table th {
+        background: #f0f0f0;
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin: 10px 0;
+      }
+
+      .checkbox-group input[type="checkbox"] {
+        width: 24px;
+        height: 24px;
+        cursor: pointer;
+      }
+
+      .checkbox-group label {
+        margin: 0;
+        cursor: pointer;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 15px;
+      }
+
+      @media (max-width: 768px) {
+        .grid-2 {
+          grid-template-columns: 1fr;
+        }
+
+        .invoice-item {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 15px;
+        margin-bottom: 20px;
+      }
+
+      .stat-card {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 20px;
+        border-radius: 10px;
+        text-align: center;
+      }
+
+      .stat-card h4 {
+        font-size: 14px;
+        margin-bottom: 10px;
+        opacity: 0.9;
+      }
+
+      .stat-card p {
+        font-size: 24px;
+        font-weight: bold;
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1000;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        animation: fadeIn 0.3s;
+        overflow-y: auto;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 20px auto;
+        padding: 0;
+        border: none;
+        border-radius: 15px;
+        width: 95%;
+        max-width: 500px;
+        box-shadow: 0 10px 50px rgba(0, 0, 0, 0.3);
+        animation: slideIn 0.3s;
+      }
+
+      @keyframes slideIn {
+        from {
+          transform: translateY(-50px);
+          opacity: 0;
+        }
+        to {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
+
+      .modal-header {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 15px;
+        border-radius: 15px 15px 0 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .modal-header h3 {
+        margin: 0;
+        font-size: 18px;
+      }
+
+      .close-modal {
+        color: white;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+        background: none;
+        border: none;
+        width: 35px;
+        height: 35px;
+        line-height: 35px;
+        text-align: center;
+        border-radius: 50%;
+      }
+
+      .close-modal:hover {
+        background: rgba(255, 255, 255, 0.2);
+      }
+
+      .modal-body {
+        padding: 15px;
+        max-height: 70vh;
+        overflow-y: auto;
+      }
+
+      .modal-footer {
+        padding: 15px;
+        border-top: 1px solid #e9ecef;
+        display: flex;
+        gap: 10px;
+        justify-content: flex-end;
+      }
+
+      .modal-footer button {
+        flex: 1;
+        max-width: 150px;
+      }
+
+      .modal-input {
+        width: 100%;
+        padding: 14px;
+        border: 2px solid #ddd;
+        border-radius: 8px;
+        font-size: 18px;
+        margin-top: 10px;
+        box-sizing: border-box;
+      }
+
+      .modal-input:focus {
+        outline: none;
+        border-color: #667eea;
+      }
+
+      .info-box {
+        background: #e7f3ff;
+        border-left: 4px solid #2196f3;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+
+      .info-box h4 {
+        font-size: 16px;
+      }
+
+      .info-box p {
+        font-size: 14px;
+      }
+
+      .warning-box {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+
+      .warning-box h4 {
+        font-size: 16px;
+      }
+
+      .success-box {
+        background: #d4edda;
+        border-left: 4px solid #28a745;
+        padding: 12px;
+        margin: 10px 0;
+        border-radius: 5px;
+      }
+
+      .success-box h4 {
+        font-size: 16px;
+      }
+
+      .stat-grid-modal {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 10px;
+        margin: 15px 0;
+      }
+
+      @media (min-width: 400px) {
+        .stat-grid-modal {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+      .stat-box {
+        text-align: center;
+        padding: 15px 10px;
+        border-radius: 8px;
+      }
+
+      .stat-box p:first-child {
+        font-size: 11px;
+        margin: 0;
+      }
+
+      .stat-box p:last-child {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 5px 0 0 0;
+      }
+
+      @media (max-width: 768px) {
+        .modal-content {
+          margin: 10px;
+          width: calc(100% - 20px);
+        }
+
+        .modal-header h3 {
+          font-size: 16px;
+        }
+
+        .modal-body {
+          padding: 12px;
+        }
+
+        .info-box,
+        .warning-box,
+        .success-box {
+          padding: 10px;
+          font-size: 13px;
+        }
+      }
+
+      /* Stone & Extra Charges Panel */
+      .stone-panel {
+        background: #fff;
+        border: 1px dashed #cbd5e0;
+        border-radius: 8px;
+        padding: 10px;
+        margin-top: 8px;
+      }
+      .stone-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 10px;
+      }
+      .extra-charge-row {
+        display: grid;
+        grid-template-columns: 2fr 1fr auto;
+        gap: 10px;
+        align-items: center;
+        margin-bottom: 8px;
+      }
+      .extra-charge-btn {
+        margin-top: 6px;
+        padding: 6px 10px;
+        border: none;
+        border-radius: 6px;
+        background: #757f9a;
+        color: #fff;
+        cursor: pointer;
+      }
+      .remove-extra-btn {
+        border: none;
+        background: #dc3545;
+        color: #fff;
+        padding: 6px 10px;
+        border-radius: 6px;
+        cursor: pointer;
+      }
+
+      @media (max-width: 480px) {
+        .invoice-items {
+          padding: 8px;
+        }
+        .invoice-item {
+          padding: 8px;
+          gap: 8px;
+        }
+        .stone-panel {
+          padding: 8px;
+          margin-top: 8px;
+        }
+        .stone-row {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+        .extra-charge-row {
+          grid-template-columns: 1fr;
+          gap: 8px;
+        }
+        .stone-panel input,
+        .stone-panel select {
+          font-size: 16px;
+          padding: 12px;
+          min-height: 48px;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        .extra-charge-btn {
+          width: 100%;
+          padding: 12px;
+          font-size: 16px;
+          box-sizing: border-box;
+        }
+        .invoice-item input,
+        .invoice-item select {
+          padding: 12px;
+          font-size: 16px;
+          min-height: 48px;
+          width: 100%;
+          box-sizing: border-box;
+        }
+        .remove-item-btn {
+          width: 100%;
+          padding: 12px;
+          font-size: 16px;
+          margin-top: 8px;
+        }
+        .remove-extra-btn {
+          width: 100%;
+          padding: 10px;
+          font-size: 14px;
+          margin-top: 5px;
+        }
+
+        /* Print buttons mobile responsive */
+        .no-print {
+          flex-direction: column !important;
+          padding: 0 10px;
+        }
+        .no-print button {
+          width: 100% !important;
+          margin-bottom: 10px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <h1>सांवरिया जी ज्वैलर्स</h1>
+        <p>Ugam Raj Soni | 📞 9351896678</p>
+        <p>36, रुई कटला, नाइयों की ढाल के बाहर</p>
+      </div>
+
+      <div class="nav-buttons">
+        <button class="nav-btn" onclick="showSection('metalRates')">
+          🪙 धातु दर
+        </button>
+        <button class="nav-btn" onclick="showSection('inventory')">
+          📦 इन्वेंटरी
+        </button>
+        <button class="nav-btn" onclick="showSection('invoice')">
+          📄 बिल बनाएं
+        </button>
+        <button class="nav-btn" onclick="showSection('customers')">
+          👥 ग्राहक
+        </button>
+        <button class="nav-btn" onclick="showSection('interest')">
+          💰 ब्याज व्यापार
+        </button>
+        <button class="nav-btn" onclick="showSection('accounting')">
+          📊 हिसाब-किताब
+        </button>
+        <button class="nav-btn" onclick="showSection('backup')">
+          💾 बैकअप
+        </button>
+      </div>
+
+      <!-- Metal Rates Section -->
+      <div id="metalRates" class="section active">
+        <h2>धातु दर सेट करें (Metal Rates)</h2>
+        <div class="card">
+          <div class="form-group">
+            <label>10 ग्राम सोना (Gold) - दर (₹)</label>
+            <input
+              type="number"
+              id="goldRate"
+              placeholder="उदाहरण: 75000"
+              value="75000"
+            />
+          </div>
+          <div class="form-group">
+            <label>10 ग्राम चांदी (Silver) - दर (₹)</label>
+            <input
+              type="number"
+              id="silverRate"
+              placeholder="उदाहरण: 8500"
+              value="8500"
+            />
+          </div>
+          <button class="btn" onclick="saveMetalRates()">दर सेव करें</button>
+        </div>
+        <div class="summary-box">
+          <h3>वर्तमान दरें (Current Rates)</h3>
+          <div class="summary-row">
+            <span>सोना (10g):</span>
+            <span>₹ <span id="displayGoldRate">75000</span></span>
+          </div>
+          <div class="summary-row">
+            <span>चांदी (10g):</span>
+            <span>₹ <span id="displaySilverRate">8500</span></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Inventory Section -->
+      <div id="inventory" class="section">
+        <h2>इन्वेंटरी प्रबंधन (Inventory Management)</h2>
+
+        <div class="card">
+          <h3>नया आइटम जोड़ें (Purchase Entry)</h3>
+          <div class="form-group">
+            <label>आइटम का नाम (Item Name) *</label>
+            <input
+              type="text"
+              id="itemName"
+              placeholder="उदाहरण: Ring, Payal"
+            />
+          </div>
+          <div class="form-group">
+            <label>धातु (Metal Type) *</label>
+            <select id="itemMetalType">
+              <option value="">चुनें (Select)</option>
+              <option value="gold">सोना (Gold)</option>
+              <option value="silver">चांदी (Silver)</option>
+            </select>
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label>कुल वजन (ग्राम) *</label>
+              <input type="number" id="itemWeight" placeholder="1000" />
+            </div>
+            <div class="form-group">
+              <label>कुल पीस (Total Pcs) *</label>
+              <input type="number" id="itemPcs" placeholder="300" />
+            </div>
+            <div class="form-group">
+              <label>टंच % (Purity)</label>
+              <input type="number" id="itemTunch" placeholder="60" value="0" />
+            </div>
+            <div class="form-group">
+              <label>वेस्टेज % (Wastage)</label>
+              <input
+                type="number"
+                id="itemWastage"
+                placeholder="20"
+                value="0"
+              />
+            </div>
+          </div>
+          <div class="grid-2">
+            <div class="form-group">
+              <label>किससे खरीदा (Supplier - Optional)</label>
+              <input
+                type="text"
+                id="itemSupplier"
+                placeholder="सप्लायर का नाम"
+              />
+            </div>
+            <div class="form-group">
+              <label>खरीद की तारीख (Purchase Date - Optional)</label>
+              <input type="date" id="itemPurchaseDate" />
+            </div>
+            <div class="form-group">
+              <label>खरीद मूल्य (Purchase Price - Optional)</label>
+              <input type="number" id="itemPurchasePrice" placeholder="0" />
+            </div>
+          </div>
+          <button class="btn" onclick="addInventoryItem()">आइटम जोड़ें</button>
+        </div>
+
+        <div class="table-container">
+          <table id="inventoryTable">
+            <thead>
+              <tr>
+                <th>आइटम</th>
+                <th>धातु</th>
+                <th>वजन (g)</th>
+                <th>पीस</th>
+                <th>सप्लायर</th>
+                <th>तारीख</th>
+                <th>कार्यवाही</th>
+              </tr>
+            </thead>
+            <tbody id="inventoryBody"></tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Invoice Section -->
+      <div id="invoice" class="section">
+        <h2>नया बिल बनाएं (Create Invoice)</h2>
+
+        <div class="card">
+          <h3>ग्राहक जानकारी (Customer Information)</h3>
+          <div class="form-group">
+            <label>ग्राहक का नाम (Customer Name)</label>
+            <input
+              type="text"
+              id="customerName"
+              list="customerNameList"
+              placeholder="नाम दर्ज करें या चुनें"
+              oninput="fillPhoneFromName(this.value)"
+            />
+            <datalist id="customerNameList"></datalist>
+          </div>
+          <div class="form-group">
+            <label>फोन नंबर (Phone Number)</label>
+            <input
+              type="tel"
+              id="customerPhone"
+              list="customerPhoneList"
+              placeholder="10 अंकों का नंबर"
+              oninput="searchCustomer(this.value)"
+            />
+            <datalist id="customerPhoneList"></datalist>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>बिल आइटम (Invoice Items)</h3>
+          <button class="add-item-btn" onclick="addInvoiceItem()">
+            + इन्वेंटरी से आइटम जोड़ें
+          </button>
+          <button
+            class="add-item-btn"
+            style="background: #007bff"
+            onclick="addManualInvoiceItem()"
+          >
+            + मैनुअल आइटम जोड़ें
+          </button>
+          <div id="invoiceItems"></div>
+        </div>
+
+        <div class="card">
+          <h3>पुराना सोना/चांदी खरीद (Old Jewellery Purchase - Optional)</h3>
+          <div class="checkbox-group">
+            <input
+              type="checkbox"
+              id="hasOldJewellery"
+              onchange="toggleOldJewellery()"
+            />
+            <label for="hasOldJewellery">पुराना सोना/चांदी है?</label>
+          </div>
+          <div id="oldJewellerySection" style="display: none">
+            <!-- Calculation Fields -->
+            <div style="background: #f0f8ff; padding: 15px; border-radius: 8px; margin-bottom: 15px;">
+              <h4 style="margin-bottom: 12px; color: #2c5aa0;">गणना (Calculation)</h4>
+              
+              <div class="form-group">
+                <label>वजन (Weight) - ग्राम</label>
+                <input type="number" id="oldMetalWeight" placeholder="0" step="0.001" oninput="calculateOldMetalAmount()" />
+              </div>
+              
+              <div class="form-group">
+                <label>टच (Tounch)</label>
+                <input type="number" id="oldMetalTounch" placeholder="0" step="0.01" oninput="calculateOldMetalAmount()" />
+              </div>
+              
+              <div class="form-group">
+                <label>खरीद भाव (10g) - ₹</label>
+                <input type="number" id="oldMetalRate10g" placeholder="0" step="0.01" oninput="calculateOldMetalAmount()" />
+              </div>
+              
+              <div class="form-group">
+                <label>परिणाम (Result) - ₹</label>
+                <div style="display: flex; gap: 8px;">
+                  <input type="number" id="oldMetalCalculatedAmount" placeholder="0" readonly style="background: #f8f9fa; flex: 1;" />
+                  <button type="button" onclick="copyCalculatedAmount()" style="background: #28a745; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: bold; min-width: 100px;">
+                    📋 Copy
+                  </button>
+                </div>
+              </div>
+            </div>
+            
+            <div class="form-group">
+              <label>पुरानी धातु की राशि (₹)</label>
+              <input type="number" id="oldJewelleryAmount" placeholder="0" />
+            </div>
+            <div class="form-group">
+              <label>विवरण (Description - Optional)</label>
+              <textarea
+                id="oldJewelleryDesc"
+                rows="2"
+                placeholder="पुराने सोने की जानकारी..."
+              ></textarea>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>भुगतान (Payment)</h3>
+          <div class="form-group">
+            <label>भुगतान का प्रकार (Payment Type)</label>
+            <select id="paymentType">
+              <option value="full">पूरा भुगतान (Full Payment)</option>
+              <option value="partial">आंशिक भुगतान (Partial Payment)</option>
+              <option value="credit">उधार (Credit)</option>
+              <option value="advance">🎁 एडवांस (Advance)</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>प्राप्त राशि (Amount Received) ₹</label>
+            <input type="number" id="amountReceived" placeholder="0" />
+          </div>
+        </div>
+
+        <div class="summary-box">
+          <h3>बिल सारांश (Invoice Summary)</h3>
+          <div
+            class="summary-row"
+            id="previousBalanceRow"
+            style="
+              display: none;
+              background: #fff3cd;
+              padding: 10px;
+              margin-bottom: 10px;
+              border-radius: 5px;
+            "
+          >
+            <span style="color: #856404; font-weight: bold"
+              >⚠️ पुराना बकाया:</span
+            >
+            <span style="color: #856404; font-weight: bold"
+              >₹ <span id="previousBalance">0</span></span
+            >
+          </div>
+          <div class="summary-row">
+            <span>कुल धातु मूल्य:</span>
+            <span>₹ <span id="totalMetalValue">0</span></span>
+          </div>
+          <div class="summary-row">
+            <span>कुल मजदूरी:</span>
+            <span>₹ <span id="totalLabour">0</span></span>
+          </div>
+          <div class="summary-row">
+            <span>उप-योग:</span>
+            <span>₹ <span id="subtotal">0</span></span>
+          </div>
+          <div class="summary-row">
+            <span>पुरानी धातु (-):</span>
+            <span>₹ <span id="oldMetalDeduction">0</span></span>
+          </div>
+          <div class="summary-row total">
+            <span>इस बिल की राशि:</span>
+            <span>₹ <span id="grandTotal">0</span></span>
+          </div>
+          <div
+            class="summary-row total"
+            style="
+              background: #fff3cd;
+              padding: 10px;
+              border-radius: 5px;
+              margin-top: 10px;
+            "
+          >
+            <span style="color: #856404">कुल बकाया (पुराना + नया):</span>
+            <span style="color: #856404"
+              >₹ <span id="totalWithPrevious">0</span></span
+            >
+          </div>
+          <div class="summary-row">
+            <span>अंतिम छूट/एडजस्टमेंट (-):</span>
+            <span
+              >₹
+              <input
+                type="number"
+                id="finalDiscountInput"
+                value="0"
+                step="0.01"
+                oninput="updateInvoiceSummary()"
+                onchange="updateInvoiceSummary()"
+                style="
+                  width: 140px;
+                  padding: 8px;
+                  border: 1px solid #ddd;
+                  border-radius: 6px;
+                "
+            /></span>
+          </div>
+          <div
+            class="summary-row total"
+            style="
+              background: #e7f3ff;
+              padding: 10px;
+              border-radius: 5px;
+              margin-top: 10px;
+            "
+          >
+            <span>छूट के बाद देय:</span>
+            <span>₹ <span id="discountedTotal">0</span></span>
+          </div>
+
+          <div class="summary-row">
+            <span>प्राप्त राशि (नकद + पुराना सोना):</span>
+            <span>₹ <span id="receivedAmount">0</span></span>
+          </div>
+          <div class="summary-row total" style="color: #dc3545">
+            <span>अंतिम बाकी राशि:</span>
+            <span>₹ <span id="balanceDue">0</span></span>
+          </div>
+        </div>
+
+        <button class="btn" onclick="generateInvoice()">
+          बिल बनाएं और प्रिंट करें
+        </button>
+      </div>
+
+      <!-- Customers Section -->
+      <div id="customers" class="section">
+        <h2>ग्राहक लेजर (Customer Ledger)</h2>
+
+        <div class="card" id="customerDetailView" style="display: none">
+          <h3>ग्राहक का विवरण</h3>
+          <button class="btn btn-secondary" onclick="closeCustomerDetail()">
+            वापस जाएं
+          </button>
+          <div id="customerDetailContent"></div>
+        </div>
+
+        <div id="customerListView">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>नाम</th>
+                  <th>फोन</th>
+                  <th>कुल खरीद</th>
+                  <th>बाकी राशि</th>
+                  <th>कार्यवाही</th>
+                </tr>
+              </thead>
+              <tbody id="customersBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interest Business Section -->
+      <div id="interest" class="section">
+        <h2>ब्याज व्यापार (Interest Business)</h2>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h4>कुल उधार दी गई राशि</h4>
+            <p>₹ <span id="totalLent">0</span></p>
+          </div>
+          <div class="stat-card">
+            <h4>कुल ली गई राशि</h4>
+            <p>₹ <span id="totalBorrowed">0</span></p>
+          </div>
+          <div class="stat-card">
+            <h4>इस महीने का लाभ</h4>
+            <p>₹ <span id="monthlyProfit">0</span></p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>नया लेन-देन (New Transaction)</h3>
+          <div class="form-group">
+            <label>प्रकार (Type)</label>
+            <select id="transactionType">
+              <option value="lent">उधार दिया (Money Lent to Customer)</option>
+              <option value="borrowed">
+                उधार लिया (Money Borrowed from Relative)
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>नाम (Name)</label>
+            <input
+              type="text"
+              id="transactionName"
+              placeholder="व्यक्ति का नाम"
+            />
+          </div>
+          <div class="form-group">
+            <label>राशि (Amount) ₹</label>
+            <input type="number" id="transactionAmount" placeholder="0" />
+          </div>
+          <div class="form-group">
+            <label>ब्याज दर (%) प्रति माह</label>
+            <input
+              type="number"
+              id="interestRate"
+              placeholder="उदाहरण: 3 या 1.25"
+              step="0.01"
+            />
+          </div>
+          <div class="form-group">
+            <label>तारीख (Date)</label>
+            <input type="date" id="transactionDate" />
+          </div>
+          <button class="btn" onclick="addInterestTransaction()">
+            लेन-देन जोड़ें
+          </button>
+        </div>
+
+        <h3>सक्रिय लेन-देन (Active Transactions)</h3>
+        <div class="table-container">
+          <table>
+            <thead>
+              <tr>
+                <th>नाम</th>
+                <th>प्रकार</th>
+                <th>राशि</th>
+                <th>ब्याज %</th>
+                <th>तारीख</th>
+                <th>कुल ब्याज</th>
+                <th>जमा ब्याज</th>
+                <th>बाकी ब्याज</th>
+                <th>चुकाया मूलधन</th>
+                <th>बाकी मूलधन</th>
+                <th>कार्यवाही</th>
+              </tr>
+            </thead>
+            <tbody id="interestBody"></tbody>
+          </table>
+        </div>
+
+        <h3 style="margin-top: 30px">बंद हुए लेन-देन (Closed Transactions)</h3>
+        <button
+          class="btn btn-secondary"
+          onclick="toggleClosedTransactions()"
+          style="margin-bottom: 15px"
+        >
+          देखें / छुपाएं
+        </button>
+        <div id="closedTransactionsView" style="display: none">
+          <div class="table-container">
+            <table>
+              <thead>
+                <tr>
+                  <th>नाम</th>
+                  <th>प्रकार</th>
+                  <th>राशि</th>
+                  <th>ब्याज %</th>
+                  <th>शुरू</th>
+                  <th>बंद</th>
+                  <th>कुल ब्याज</th>
+                  <th>कार्यवाही</th>
+                </tr>
+              </thead>
+              <tbody id="closedInterestBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Accounting Section -->
+      <div id="accounting" class="section">
+        <h2>हिसाब-किताब (Profit & Loss)</h2>
+
+        <div class="stats-grid">
+          <div class="stat-card">
+            <h4>कुल बिक्री</h4>
+            <p>₹ <span id="totalSales">0</span></p>
+          </div>
+          <div class="stat-card">
+            <h4>कुल प्राप्त</h4>
+            <p>₹ <span id="totalReceived">0</span></p>
+          </div>
+          <div class="stat-card">
+            <h4>बाकी राशि</h4>
+            <p>₹ <span id="totalPending">0</span></p>
+          </div>
+        </div>
+
+        <div class="card">
+          <h3>बिक्री रिपोर्ट (Sales Report)</h3>
+          <div class="grid-2">
+            <div class="form-group">
+              <label>से (From)</label>
+              <input type="date" id="reportFromDate" />
+            </div>
+            <div class="form-group">
+              <label>तक (To)</label>
+              <input type="date" id="reportToDate" />
+            </div>
+          </div>
+          <button class="btn" onclick="generateReport()">रिपोर्ट देखें</button>
+        </div>
+
+        <div id="reportResult"></div>
+      </div>
+
+      <!-- Backup Section -->
+      <div id="backup" class="section">
+        <h2>बैकअप और डेटा (Backup & Data)</h2>
+
+        <div class="card">
+          <h3>आज का बैकअप</h3>
+          <p>अंतिम बैकअप: <strong id="lastBackup">कभी नहीं</strong></p>
+          <button class="btn" onclick="createBackup()">अभी बैकअप बनाएं</button>
+          <button class="btn btn-secondary" onclick="downloadBackup()">
+            बैकअप डाउनलोड करें
+          </button>
+        </div>
+
+        <div class="card">
+          <h3>डेटा पुनर्स्थापित करें (Restore Data)</h3>
+          <input
+            type="file"
+            id="restoreFile"
+            accept=".json"
+            style="display: none"
+            onchange="restoreBackup(this)"
+          />
+          <button
+            class="btn btn-secondary"
+            onclick="document.getElementById('restoreFile').click()"
+          >
+            बैकअप फ़ाइल चुनें
+          </button>
+        </div>
+
+        <div class="card">
+          <h3>⚠️ सभी डेटा मिटाएं (Delete All Data)</h3>
+          <button class="btn btn-danger" onclick="clearAllData()">
+            सभी डेटा मिटाएं
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Print Invoice Template (Hidden) -->
+    <div id="printInvoice" class="print-invoice" style="display: none"></div>
+
+    <!-- Modal Dialogs -->
+    <!-- Interest Payment Modal -->
+    <div id="payInterestModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>💰 ब्याज जमा करें</h3>
+          <button class="close-modal" onclick="closeModal('payInterestModal')">
+            &times;
+          </button>
+        </div>
+        <div class="modal-body">
+          <div id="payInterestContent"></div>
+          <label
+            id="paymentInputLabel"
+            style="font-weight: bold; margin-top: 15px; display: block"
+            >जमा करने की राशि (₹)</label
+          >
+          <input
+            type="number"
+            id="payInterestAmount"
+            class="modal-input"
+            placeholder="राशि दर्ज करें"
+            min="0"
+            step="0.01"
+          />
+        </div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('payInterestModal')"
+          >
+            रद्द करें
+          </button>
+          <button class="btn" onclick="confirmPayInterest()">जमा करें</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Interest History Modal -->
+    <div id="interestHistoryModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>📊 ब्याज इतिहास</h3>
+          <button
+            class="close-modal"
+            onclick="closeModal('interestHistoryModal')"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="modal-body" id="interestHistoryContent"></div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('interestHistoryModal')"
+          >
+            बंद करें
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Close Transaction Modal -->
+    <div id="closeTransactionModal" class="modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h3>⚠️ लेन-देन बंद करें</h3>
+          <button
+            class="close-modal"
+            onclick="closeModal('closeTransactionModal')"
+          >
+            &times;
+          </button>
+        </div>
+        <div class="modal-body" id="closeTransactionContent"></div>
+        <div class="modal-footer">
+          <button
+            class="btn btn-secondary"
+            onclick="closeModal('closeTransactionModal')"
+          >
+            रद्द करें
+          </button>
+          <button class="btn btn-danger" onclick="confirmCloseTransaction()">
+            बंद करें
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Initialize data structure
+      let appData = {
+        metalRates: { gold: 75000, silver: 8500 },
+        inventory: [],
+        customers: {},
+        invoices: [],
+        interestTransactions: [],
+        lastBackup: null,
+      };
+
+      // Load data from localStorage
+      function loadData() {
+        try {
+          const saved = localStorage.getItem("jewelleryData");
+          if (saved) {
+            appData = JSON.parse(saved);
+            updateMetalRatesDisplay();
+            renderInventory();
+            renderCustomers();
+            populateCustomerDatalist();
+            renderInterestTransactions();
+            updateAccountingStats();
+            if (appData.lastBackup) {
+              document.getElementById("lastBackup").textContent = new Date(
+                appData.lastBackup
+              ).toLocaleString("hi-IN");
+            }
+          }
+          autoBackup();
+        } catch (error) {
+          console.error("Error loading data:", error);
+          alert("Data load error: " + error.message);
+        }
+      }
+
+      // Save data to localStorage
+      function saveData() {
+        localStorage.setItem("jewelleryData", JSON.stringify(appData));
+      }
+
+      // Auto backup daily
+      function autoBackup() {
+        const lastBackup = appData.lastBackup;
+        const today = new Date().toDateString();
+
+        if (!lastBackup || new Date(lastBackup).toDateString() !== today) {
+          createBackup();
+        }
+
+        // Schedule next check
+        setTimeout(autoBackup, 3600000); // Check every hour
+      }
+
+      // Navigation
+      function showSection(sectionId) {
+        document
+          .querySelectorAll(".section")
+          .forEach((s) => s.classList.remove("active"));
+        document.getElementById(sectionId).classList.add("active");
+      }
+
+      // Metal Rates
+      function saveMetalRates() {
+        const gold = parseFloat(document.getElementById("goldRate").value) || 0;
+        const silver =
+          parseFloat(document.getElementById("silverRate").value) || 0;
+
+        appData.metalRates.gold = gold;
+        appData.metalRates.silver = silver;
+
+        saveData();
+        updateMetalRatesDisplay();
+        alert("धातु दरें सेव हो गई हैं! (Rates saved!)");
+      }
+
+      function updateMetalRatesDisplay() {
+        document.getElementById("goldRate").value = appData.metalRates.gold;
+        document.getElementById("silverRate").value = appData.metalRates.silver;
+        document.getElementById("displayGoldRate").textContent =
+          appData.metalRates.gold.toFixed(0);
+        document.getElementById("displaySilverRate").textContent =
+          appData.metalRates.silver.toFixed(0);
+      }
+
+      // Inventory Management
+      function addInventoryItem() {
+        const name = document.getElementById("itemName").value.trim();
+        const metalType = document.getElementById("itemMetalType").value;
+        const weight =
+          parseFloat(document.getElementById("itemWeight").value) || 0;
+        const pcs = parseInt(document.getElementById("itemPcs").value) || 0;
+        const tunch =
+          parseFloat(document.getElementById("itemTunch").value) || 0;
+        const wastage =
+          parseFloat(document.getElementById("itemWastage").value) || 0;
+        const supplier = document.getElementById("itemSupplier").value.trim();
+        const purchaseDate = document.getElementById("itemPurchaseDate").value;
+        const purchasePrice =
+          parseFloat(document.getElementById("itemPurchasePrice").value) || 0;
+
+        if (!name || !metalType || weight <= 0 || pcs <= 0) {
+          alert(
+            "कृपया आवश्यक जानकारी भरें! (नाम, धातु, वजन, पीस)\n(Please fill required fields!)"
+          );
+          return;
+        }
+
+        appData.inventory.push({
+          id: Date.now(),
+          name,
+          metalType,
+          weight,
+          pcs,
+          tunch,
+          wastage,
+          supplier: supplier || "N/A",
+          purchaseDate: purchaseDate || "N/A",
+          purchasePrice,
+        });
+
+        saveData();
+        renderInventory();
+
+        // Clear form
+        document.getElementById("itemName").value = "";
+        document.getElementById("itemMetalType").value = "";
+        document.getElementById("itemWeight").value = "";
+        document.getElementById("itemPcs").value = "";
+        document.getElementById("itemTunch").value = "0";
+        document.getElementById("itemWastage").value = "0";
+        document.getElementById("itemSupplier").value = "";
+        document.getElementById("itemPurchaseDate").value = "";
+        document.getElementById("itemPurchasePrice").value = "";
+
+        alert("आइटम जोड़ा गया! (Item added!)");
+      }
+
+      function renderInventory() {
+        const tbody = document.getElementById("inventoryBody");
+        tbody.innerHTML = "";
+
+        appData.inventory.forEach((item) => {
+          const row = tbody.insertRow();
+          const metalText = item.metalType === "gold" ? "🪙 सोना" : "⚪ चांदी";
+          const dateText =
+            item.purchaseDate !== "N/A"
+              ? new Date(item.purchaseDate).toLocaleDateString("hi-IN")
+              : "N/A";
+
+          row.innerHTML = `
+                    <td><strong>${item.name}</strong><br><small>टंच: ${item.tunch}% | वेस्टेज: ${item.wastage}%</small></td>
+                    <td>${metalText}</td>
+                    <td>${item.weight}g</td>
+                    <td>${item.pcs}</td>
+                    <td>${item.supplier}</td>
+                    <td>${dateText}</td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-view" onclick="viewInventoryItem(${item.id})">देखें</button>
+                            <button class="btn-delete" onclick="deleteInventoryItem(${item.id})">मिटाएं</button>
+                        </div>
+                    </td>
+                `;
+        });
+      }
+
+      function viewInventoryItem(id) {
+        const item = appData.inventory.find((i) => i.id === id);
+        if (item) {
+          const metalText =
+            item.metalType === "gold" ? "सोना (Gold)" : "चांदी (Silver)";
+          const dateText =
+            item.purchaseDate !== "N/A"
+              ? new Date(item.purchaseDate).toLocaleDateString("hi-IN")
+              : "N/A";
+          alert(
+            `आइटम: ${item.name}\nधातु: ${metalText}\nवजन: ${item.weight}g\nपीस: ${item.pcs}\nटंच: ${item.tunch}%\nवेस्टेज: ${item.wastage}%\nसप्लायर: ${item.supplier}\nतारीख: ${dateText}\nखरीद मूल्य: ₹${item.purchasePrice}`
+          );
+        }
+      }
+
+      function deleteInventoryItem(id) {
+        if (confirm("क्या आप इस आइटम को मिटाना चाहते हैं?")) {
+          appData.inventory = appData.inventory.filter(
+            (item) => item.id !== id
+          );
+          saveData();
+          renderInventory();
+        }
+      }
+
+      // Invoice Management
+      let invoiceItemCounter = 0;
+
+      function addInvoiceItem() {
+        if (appData.inventory.length === 0) {
+          alert(
+            "इन्वेंटरी खाली है! कृपया पहले इन्वेंटरी जोड़ें या मैनुअल आइटम बनाएं।\n(Inventory is empty! Please add inventory first or use manual item.)"
+          );
+          return;
+        }
+
+        const container = document.getElementById("invoiceItems");
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "invoice-item";
+        itemDiv.id = `item-${invoiceItemCounter}`;
+
+        itemDiv.innerHTML = `
+                <select onchange="updateInvoiceSummary()">
+                    <option value="">आइटम चुनें</option>
+                    ${appData.inventory
+                      .map((item) => {
+                        const metalIcon =
+                          item.metalType === "gold" ? "🪙" : "⚪";
+                        return `<option value="${item.id}" data-metal="${item.metalType}">${metalIcon} ${item.name}</option>`;
+
+                        // --- Stone/Extra Charges Panel (hidden by default) ---
+                        const stonePanel = document.createElement("div");
+                        stonePanel.className = "stone-panel";
+                        stonePanel.style.display = "none";
+                        stonePanel.innerHTML = `
+        <div class="stone-row">
+            <input type="number" class="stone-weight-input" placeholder="स्टोन वजन (ग्राम)" step="0.01" oninput="updateInvoiceSummary()">
+            <input type="number" class="stone-charges-input" placeholder="स्टोन चार्ज (₹)" step="0.01" oninput="updateInvoiceSummary()">
+        </div>
+        <div class="extra-charges-list"></div>
+        <button type="button" class="extra-charge-btn" onclick="addExtraCharge(this)">+ अतिरिक्त चार्ज जोड़ें</button>
+    `;
+                        itemDiv.appendChild(stonePanel);
+
+                        // Show stone panel only if selected inventory metal is gold
+                        const invSelect = itemDiv.querySelector("select");
+                        function toggleStonePanelInv() {
+                          const opt = invSelect
+                            ? invSelect.options[invSelect.selectedIndex]
+                            : null;
+                          const metal = opt
+                            ? opt.getAttribute("data-metal")
+                            : "";
+                          if (metal === "gold") {
+                            stonePanel.style.display = "block";
+                          } else {
+                            stonePanel.style.display = "none";
+                            const sw = itemDiv.querySelector(
+                              ".stone-weight-input"
+                            );
+                            if (sw) sw.value = "";
+                            const sc = itemDiv.querySelector(
+                              ".stone-charges-input"
+                            );
+                            if (sc) sc.value = "";
+                            const list = itemDiv.querySelector(
+                              ".extra-charges-list"
+                            );
+                            if (list) list.innerHTML = "";
+                          }
+                          updateInvoiceSummary();
+                        }
+                        if (invSelect) {
+                          invSelect.addEventListener(
+                            "change",
+                            toggleStonePanelInv
+                          );
+                        }
+                      })
+                      .join("")}
+                </select>
+                <input type="number" placeholder="वजन (g)" oninput="updateInvoiceSummary()" min="0" step="0.01">
+                <input type="number" placeholder="मात्रा" oninput="updateInvoiceSummary()" min="1" value="1">
+                <div>
+                    <select onchange="updateInvoiceSummary()">
+                        <option value="pg">प्रति ग्राम (Per Gram)</option>
+                        <option value="ppc">प्रति पीस (Per Piece)</option>
+                        <option value="pkg">प्रति किलो (Per KG)</option>
+                        <option value="fixed">फिक्स्ड (Fixed)</option>
+                        <option value="percent">प्रतिशत (Percentage)</option>
+                    </select>
+                    <input type="number" placeholder="मजदूरी" oninput="updateInvoiceSummary()" min="0">
+                </div>
+                <button class="remove-item-btn" onclick="removeInvoiceItem(${invoiceItemCounter})">हटाएं</button>
+            `;
+
+        container.appendChild(itemDiv);
+        invoiceItemCounter++;
+      }
+
+      function addManualInvoiceItem() {
+        const container = document.getElementById("invoiceItems");
+        const itemDiv = document.createElement("div");
+        itemDiv.className = "invoice-item";
+        itemDiv.id = `item-${invoiceItemCounter}`;
+        itemDiv.setAttribute("data-manual", "true");
+
+        itemDiv.innerHTML = `
+                <input type="text" placeholder="आइटम का नाम" onchange="updateInvoiceSummary()">
+                <select onchange="updateInvoiceSummary()" data-metal-select="true">
+                    <option value="">धातु चुनें</option>
+                    <option value="gold">🪙 सोना (Gold)</option>
+                    <option value="silver">⚪ चांदी (Silver)</option>
+                </select>
+                <input type="number" placeholder="वजन (g)" oninput="updateInvoiceSummary()" min="0" step="0.01">
+                <input type="number" placeholder="मात्रा" oninput="updateInvoiceSummary()" min="1" value="1">
+                <div>
+                    <select onchange="updateInvoiceSummary()">
+                        <option value="pg">प्रति ग्राम (Per Gram)</option>
+                        <option value="ppc">प्रति पीस (Per Piece)</option>
+                        <option value="pkg">प्रति किलो (Per KG)</option>
+                        <option value="fixed">फिक्स्ड (Fixed)</option>
+                        <option value="percent">प्रतिशत (Percentage)</option>
+                    </select>
+                    <input type="number" placeholder="मजदूरी" oninput="updateInvoiceSummary()" min="0">
+                </div>
+                <button class="remove-item-btn" onclick="removeInvoiceItem(${invoiceItemCounter})">हटाएं</button>
+            `;
+
+        // --- Stone/Extra Charges Panel (hidden by default) ---
+        const stonePanel = document.createElement("div");
+        stonePanel.className = "stone-panel";
+        stonePanel.style.display = "none";
+        stonePanel.innerHTML = `
+        <div class="stone-row">
+            <input type="number" class="stone-weight-input" placeholder="स्टोन वजन (ग्राम)" step="0.01" oninput="updateInvoiceSummary()">
+            <input type="number" class="stone-charges-input" placeholder="स्टोन चार्ज (₹)" step="0.01" oninput="updateInvoiceSummary()">
+        </div>
+        <div class="extra-charges-list"></div>
+        <button type="button" class="extra-charge-btn" onclick="addExtraCharge(this)">+ अतिरिक्त चार्ज जोड़ें</button>
+    `;
+        itemDiv.appendChild(stonePanel);
+
+        // Show stone panel only if manual metal is gold
+        const metalSelect = itemDiv.querySelector(
+          'select[data-metal-select="true"]'
+        );
+        function toggleStonePanelManual() {
+          if (metalSelect && metalSelect.value === "gold") {
+            stonePanel.style.display = "block";
+          } else {
+            stonePanel.style.display = "none";
+            const sw = itemDiv.querySelector(".stone-weight-input");
+            if (sw) sw.value = "";
+            const sc = itemDiv.querySelector(".stone-charges-input");
+            if (sc) sc.value = "";
+            const list = itemDiv.querySelector(".extra-charges-list");
+            if (list) list.innerHTML = "";
+          }
+          updateInvoiceSummary();
+        }
+        if (metalSelect) {
+          metalSelect.addEventListener("change", toggleStonePanelManual);
+        }
+        container.appendChild(itemDiv);
+        invoiceItemCounter++;
+      }
+
+      function removeInvoiceItem(id) {
+        const item = document.getElementById(`item-${id}`);
+        if (item) {
+          item.remove();
+          updateInvoiceSummary();
+        }
+      }
+
+      function toggleOldJewellery() {
+        const checkbox = document.getElementById("hasOldJewellery");
+        const section = document.getElementById("oldJewellerySection");
+        section.style.display = checkbox.checked ? "block" : "none";
+        updateInvoiceSummary();
+      }
+
+      // Calculate old metal amount based on weight, tounch and rate
+      function calculateOldMetalAmount() {
+        const weight = parseFloat(document.getElementById("oldMetalWeight").value) || 0;
+        const tounch = parseFloat(document.getElementById("oldMetalTounch").value) || 0;
+        const rate10g = parseFloat(document.getElementById("oldMetalRate10g").value) || 0;
+        
+        // Formula: Weight × (Tounch ÷ 100) × (Rate(10g) ÷ 10)
+        const result = weight * (tounch / 100) * (rate10g / 10);
+        
+        document.getElementById("oldMetalCalculatedAmount").value = result.toFixed(2);
+      }
+
+      // Copy calculated amount to old jewellery amount field
+      function copyCalculatedAmount() {
+        const calculatedAmount = document.getElementById("oldMetalCalculatedAmount").value;
+        const oldJewelleryAmountField = document.getElementById("oldJewelleryAmount");
+        
+        if (calculatedAmount && parseFloat(calculatedAmount) > 0) {
+          oldJewelleryAmountField.value = calculatedAmount;
+          
+          // Show a brief success indication
+          const button = event.target;
+          const originalText = button.innerHTML;
+          button.innerHTML = "✓ Copied!";
+          button.style.background = "#218838";
+          
+          setTimeout(() => {
+            button.innerHTML = originalText;
+            button.style.background = "#28a745";
+          }, 1500);
+          
+          // Update invoice summary
+          updateInvoiceSummary();
+        } else {
+          showNotification("कृपया पहले गणना करें (Please calculate first)", "error");
+        }
+      }
+
+
+      function updateInvoiceSummary() {
+        let totalMetalValue = 0;
+        let totalLabour = 0;
+
+        const items = document.querySelectorAll(".invoice-item");
+        items.forEach((item) => {
+          const isManual = item.getAttribute("data-manual") === "true";
+          let metalType = "";
+          let weight = 0;
+          let qty = 1;
+          let labourType = "pg";
+          let labourValue = 0;
+
+          if (isManual) {
+            const itemName = item.querySelector('input[type="text"]').value;
+            const metalSelect = item.querySelector(
+              'select[data-metal-select="true"]'
+            );
+            metalType = metalSelect ? metalSelect.value : "";
+            const inputs = item.querySelectorAll('input[type="number"]');
+            weight = parseFloat(inputs[0].value) || 0;
+            qty = parseInt(inputs[1].value) || 1;
+            const selects = item.querySelectorAll("select");
+            labourType = selects[1] ? selects[1].value : "pg";
+            labourValue = parseFloat(inputs[2].value) || 0;
+            if (!(itemName && metalType && weight > 0)) {
+              // skip incomplete row
+              return;
+            }
+          } else {
+            const select = item.querySelector("select");
+            const inputs = item.querySelectorAll("input");
+            if (!(select.value && inputs[0].value && inputs[1].value)) {
+              return;
+            }
+            const itemId = parseInt(select.value);
+            const invItem = appData.inventory.find((i) => i.id === itemId);
+            if (!invItem) return;
+            metalType = invItem.metalType;
+            weight = parseFloat(inputs[0].value) || 0;
+            qty = parseInt(inputs[1].value) || 1;
+            labourType = item.querySelectorAll("select")[1].value;
+            labourValue =
+              parseFloat(item.querySelectorAll("input")[2].value) || 0;
+          }
+
+          // Base metal rate per gram
+          let metalRatePerGram = 0;
+          if (metalType === "gold") {
+            metalRatePerGram = appData.metalRates.gold / 10;
+          } else if (metalType === "silver") {
+            metalRatePerGram = appData.metalRates.silver / 10;
+          }
+
+          // Stone deductions and charges (only for gold)
+          let stoneWeight = 0;
+          let stoneCharges = 0;
+          let extraChargesSum = 0;
+
+          const stonePanel = item.querySelector(".stone-panel");
+          if (stonePanel && metalType === "gold") {
+            const sw = stonePanel.querySelector(".stone-weight-input");
+            const sc = stonePanel.querySelector(".stone-charges-input");
+            stoneWeight = sw ? parseFloat(sw.value) || 0 : 0;
+            stoneCharges = sc ? parseFloat(sc.value) || 0 : 0;
+            stoneWeight = Math.max(stoneWeight, 0);
+            // Collect extra charges
+            stonePanel
+              .querySelectorAll(".extra-charge-amount")
+              .forEach((inp) => {
+                extraChargesSum += parseFloat(inp.value) || 0;
+              });
+          }
+
+          const effectiveWeight = Math.max(
+            weight - (metalType === "gold" ? stoneWeight : 0),
+            0
+          );
+
+          // Metal value uses effective weight
+          totalMetalValue += effectiveWeight * metalRatePerGram * qty;
+
+          // Labour calc
+          switch (labourType) {
+            case "pg":
+              totalLabour += labourValue * weight * qty;
+              break;
+            case "ppc":
+              totalLabour += labourValue * qty;
+              break;
+            case "pkg":
+              totalLabour += (labourValue * weight * qty) / 1000;
+              break;
+            case "fixed":
+              totalLabour += labourValue;
+              break;
+            case "percent":
+              totalLabour +=
+                (weight * metalRatePerGram * qty * labourValue) / 100;
+              break;
+          }
+          // Add stone/extra charges into labour bucket
+          totalLabour += stoneCharges + extraChargesSum;
+        });
+
+        const subtotal = totalMetalValue + totalLabour;
+        const oldMetalDeduction = document.getElementById("hasOldJewellery")
+          .checked
+          ? parseFloat(document.getElementById("oldJewelleryAmount").value) || 0
+          : 0;
+
+        // Get discount value
+        const finalDiscount =
+          parseFloat(document.getElementById("finalDiscountInput").value) || 0;
+
+        const previousBalance =
+          parseFloat(document.getElementById("previousBalance").textContent) ||
+          0;
+        const received =
+          parseFloat(document.getElementById("amountReceived").value) || 0;
+
+        let grandTotal;
+        let discountedTotal;
+        let totalWithPrevious;
+        let totalReceived;
+        let balance;
+
+        // If current bill has items (amount is NOT 0)
+        if (subtotal > 0) {
+          // Normal billing with items
+          grandTotal = subtotal - oldMetalDeduction;
+          discountedTotal = Math.max(0, grandTotal - finalDiscount);
+          totalWithPrevious = discountedTotal + previousBalance;
+          totalReceived = received;
+          balance = totalWithPrevious - totalReceived;
+        }
+        // If current bill is empty (amount is 0) - PAYMENT ONLY transaction
+        else {
+          // This is a payment transaction
+          grandTotal = 0;
+          discountedTotal = 0;
+
+          // Apply discount to previous balance first
+          const balanceAfterDiscount = previousBalance - finalDiscount;
+          totalWithPrevious = balanceAfterDiscount;
+
+          // BOTH old jewellery AND cash are payments
+          totalReceived = received + oldMetalDeduction;
+          balance = totalWithPrevious - totalReceived;
+        }
+
+        document.getElementById("totalMetalValue").textContent =
+          totalMetalValue.toFixed(2);
+        document.getElementById("totalLabour").textContent =
+          totalLabour.toFixed(2);
+        document.getElementById("subtotal").textContent = subtotal.toFixed(2);
+        document.getElementById("oldMetalDeduction").textContent =
+          oldMetalDeduction.toFixed(2);
+        document.getElementById("grandTotal").textContent =
+          grandTotal.toFixed(2);
+        document.getElementById("discountedTotal").textContent =
+          discountedTotal.toFixed(2);
+        document.getElementById("totalWithPrevious").textContent =
+          totalWithPrevious.toFixed(2);
+        document.getElementById("receivedAmount").textContent =
+          totalReceived.toFixed(2);
+        document.getElementById("balanceDue").textContent = balance.toFixed(2);
+      }
+
+      // Customer Search
+      function searchCustomer(phone) {
+        if (phone.length === 10) {
+          const customer = appData.customers[phone];
+          if (customer) {
+            document.getElementById("customerName").value = customer.name;
+            // Show previous balance (positive or negative)
+            if (customer.balance !== 0) {
+              const balanceRow = document.getElementById("previousBalanceRow");
+              const balanceSpan = document.getElementById("previousBalance");
+              const balanceLabel = balanceRow.querySelector("span:first-child");
+
+              balanceRow.style.display = "flex";
+              balanceSpan.textContent = customer.balance.toFixed(2);
+
+              // Update label and color based on balance type
+              if (customer.balance > 0) {
+                // Positive balance - customer owes money
+                balanceRow.style.background = "#fff3cd";
+                balanceLabel.style.color = "#856404";
+                balanceLabel.innerHTML = "⚠️ पुराना बकाया:";
+              } else {
+                // Negative balance - customer has advance/credit
+                balanceRow.style.background = "#d4edda";
+                balanceLabel.style.color = "#155724";
+                balanceLabel.innerHTML = "💰 एडवांस राशि (-):";
+              }
+            } else {
+              document.getElementById("previousBalanceRow").style.display =
+                "none";
+              document.getElementById("previousBalance").textContent = "0";
+            }
+            updateInvoiceSummary();
+          } else {
+            document.getElementById("previousBalanceRow").style.display =
+              "none";
+            document.getElementById("previousBalance").textContent = "0";
+            updateInvoiceSummary();
+          }
+        } else {
+          document.getElementById("previousBalanceRow").style.display = "none";
+          document.getElementById("previousBalance").textContent = "0";
+          updateInvoiceSummary();
+        }
+      }
+
+      function fillPhoneFromName(name) {
+        if (name.length > 2) {
+          // Find customer by name
+          const customer = Object.values(appData.customers).find(
+            (c) => c.name.toLowerCase() === name.toLowerCase()
+          );
+          if (customer) {
+            document.getElementById("customerPhone").value = customer.phone;
+            searchCustomer(customer.phone);
+          }
+        }
+      }
+
+      function populateCustomerDatalist() {
+        try {
+          const nameList = document.getElementById("customerNameList");
+          const phoneList = document.getElementById("customerPhoneList");
+
+          if (!nameList || !phoneList) {
+            console.log("Datalist elements not found yet");
+            return;
+          }
+
+          nameList.innerHTML = "";
+          phoneList.innerHTML = "";
+
+          Object.values(appData.customers).forEach((customer) => {
+            // Add to name datalist
+            const nameOption = document.createElement("option");
+            nameOption.value = customer.name;
+            nameList.appendChild(nameOption);
+
+            // Add to phone datalist
+            const phoneOption = document.createElement("option");
+            phoneOption.value = customer.phone;
+            phoneOption.textContent = `${customer.name} - ${customer.phone}`;
+            phoneList.appendChild(phoneOption);
+          });
+        } catch (error) {
+          console.error("Error in populateCustomerDatalist:", error);
+        }
+      }
+
+      // Generate Invoice
+      function generateInvoice() {
+        updateInvoiceSummary(); // ensure latest totals
+
+        const phone = document.getElementById("customerPhone").value.trim();
+        const name = document.getElementById("customerName").value.trim();
+
+        if (!phone || phone.length !== 10) {
+          showNotification("कृपया सही फोन नंबर दर्ज करें!", "error");
+          return;
+        }
+
+        if (!name) {
+          showNotification("कृपया ग्राहक का नाम दर्ज करें!", "error");
+          return;
+        }
+
+        const items = [];
+        const itemElements = document.querySelectorAll(".invoice-item");
+
+        itemElements.forEach((item) => {
+          const isManual = item.getAttribute("data-manual") === "true";
+
+          if (isManual) {
+            // Manual item
+            const itemName = item.querySelector('input[type="text"]').value;
+            const metalSelect = item.querySelector(
+              'select[data-metal-select="true"]'
+            );
+            const metalType = metalSelect ? metalSelect.value : "";
+            const inputs = item.querySelectorAll('input[type="number"]');
+            const weight = parseFloat(inputs[0].value) || 0;
+            const qty = parseInt(inputs[1].value) || 1;
+            const labourSelects = item.querySelectorAll("select");
+            const labourType = labourSelects[1] ? labourSelects[1].value : "pg";
+            const labourValue = parseFloat(inputs[2].value) || 0;
+
+            if (itemName && metalType && weight > 0) {
+              items.push({
+                name: itemName,
+                metalType,
+                weight,
+                qty,
+                labourType,
+                labourValue,
+                isManual: true,
+                stoneWeight: (function () {
+                  const sp = item.querySelector(".stone-weight-input");
+                  return sp ? parseFloat(sp.value) || 0 : 0;
+                })(),
+                stoneCharges: (function () {
+                  const sc = item.querySelector(".stone-charges-input");
+                  return sc ? parseFloat(sc.value) || 0 : 0;
+                })(),
+                extraCharges: (function () {
+                  const arr = [];
+                  item.querySelectorAll(".extra-charge-row").forEach((r) => {
+                    const d =
+                      r.querySelector(".extra-charge-desc")?.value?.trim() ||
+                      "";
+                    const a =
+                      parseFloat(
+                        r.querySelector(".extra-charge-amount")?.value
+                      ) || 0;
+                    if (d || a) {
+                      arr.push({ desc: d, amount: a });
+                    }
+                  });
+                  return arr;
+                })(),
+              });
+            }
+          } else {
+            // Inventory item
+            const select = item.querySelector("select");
+            const inputs = item.querySelectorAll("input");
+
+            if (select.value && inputs[0].value && inputs[1].value) {
+              const itemId = parseInt(select.value);
+              const inventoryItem = appData.inventory.find(
+                (i) => i.id === itemId
+              );
+
+              if (inventoryItem) {
+                const weight = parseFloat(inputs[0].value) || 0;
+                const qty = parseInt(inputs[1].value) || 1;
+                const labourType = item.querySelectorAll("select")[1].value;
+                const labourValue =
+                  parseFloat(item.querySelectorAll("input")[2].value) || 0;
+
+                items.push({
+                  name: inventoryItem.name,
+                  metalType: inventoryItem.metalType,
+                  weight,
+                  qty,
+                  labourType,
+                  labourValue,
+                  isManual: false,
+                  inventoryId: itemId,
+                  stoneWeight: (function () {
+                    const sp = item.querySelector(".stone-weight-input");
+                    return sp ? parseFloat(sp.value) || 0 : 0;
+                  })(),
+                  stoneCharges: (function () {
+                    const sc = item.querySelector(".stone-charges-input");
+                    return sc ? parseFloat(sc.value) || 0 : 0;
+                  })(),
+                  extraCharges: (function () {
+                    const arr = [];
+                    item.querySelectorAll(".extra-charge-row").forEach((r) => {
+                      const d =
+                        r.querySelector(".extra-charge-desc")?.value?.trim() ||
+                        "";
+                      const a =
+                        parseFloat(
+                          r.querySelector(".extra-charge-amount")?.value
+                        ) || 0;
+                      if (d || a) {
+                        arr.push({ desc: d, amount: a });
+                      }
+                    });
+                    return arr;
+                  })(),
+                });
+
+                // Reduce inventory
+                const invItem = appData.inventory.find((i) => i.id === itemId);
+                if (invItem) {
+                  invItem.weight -= weight * qty;
+                  invItem.pcs -= qty;
+                }
+              }
+            }
+          }
+        });
+
+        // Check if this is a payment-only invoice
+        const hasOldJewellery =
+          document.getElementById("hasOldJewellery").checked;
+        const oldJewelleryAmount =
+          parseFloat(document.getElementById("oldJewelleryAmount").value) || 0;
+        const amountReceived =
+          parseFloat(document.getElementById("amountReceived").value) || 0;
+        const previousBalance =
+          parseFloat(document.getElementById("previousBalance").textContent) ||
+          0;
+        const finalDiscount =
+          parseFloat(document.getElementById("finalDiscountInput")?.value) || 0;
+        const discountedTotalUI =
+          parseFloat(document.getElementById("discountedTotal")?.textContent) ||
+          0;
+
+        // Allow invoice if: has items OR has old jewellery OR is payment for previous balance
+        if (
+          items.length === 0 &&
+          !hasOldJewellery &&
+          previousBalance === 0 &&
+          document.getElementById("paymentType").value !== "advance"
+        ) {
+          showNotification("कृपया कम से कम एक आइटम जोड़ें!", "error");
+          return;
+        }
+
+        // Create invoice with current totals
+        const currentMetalValue = parseFloat(
+          document.getElementById("totalMetalValue").textContent
+        );
+        const currentLabour = parseFloat(
+          document.getElementById("totalLabour").textContent
+        );
+        const currentSubtotal = parseFloat(
+          document.getElementById("subtotal").textContent
+        );
+        const oldMetalDeduction = parseFloat(
+          document.getElementById("oldMetalDeduction").textContent
+        );
+        const grandTotal = parseFloat(
+          document.getElementById("grandTotal").textContent
+        );
+        const totalWithPrevious = parseFloat(
+          document.getElementById("totalWithPrevious").textContent
+        );
+        const balance = parseFloat(
+          document.getElementById("balanceDue").textContent
+        );
+
+        const invoice = {
+          id: Date.now(),
+          date: new Date().toISOString(),
+          customer: { phone, name },
+          items,
+          oldJewellery: hasOldJewellery
+            ? {
+                amount: oldJewelleryAmount,
+                description: document
+                  .getElementById("oldJewelleryDesc")
+                  .value.trim(),
+                calculation: {
+                  weight: parseFloat(document.getElementById("oldMetalWeight").value) || 0,
+                  tounch: parseFloat(document.getElementById("oldMetalTounch").value) || 0,
+                  rate10g: parseFloat(document.getElementById("oldMetalRate10g").value) || 0,
+                  calculatedAmount: parseFloat(document.getElementById("oldMetalCalculatedAmount").value) || 0
+                }
+              }
+            : null,
+          payment: {
+            type: document.getElementById("paymentType").value,
+            received: amountReceived,
+          },
+          totals: {
+            metalValue: currentMetalValue,
+            labour: currentLabour,
+            subtotal: currentSubtotal,
+            oldMetalDeduction: oldMetalDeduction,
+            grandTotal: grandTotal,
+            previousBalance: previousBalance,
+            totalWithPrevious: totalWithPrevious,
+            finalDiscount: finalDiscount,
+            discountedTotal: discountedTotalUI,
+            balance: balance,
+          },
+          isPaymentOnly: items.length === 0,
+        };
+
+        appData.invoices.push(invoice);
+
+        // Update or create customer
+        if (!appData.customers[phone]) {
+          appData.customers[phone] = {
+            name,
+            phone,
+            totalPurchase: 0,
+            totalPaid: 0,
+            balance: 0,
+            invoices: [],
+          };
+        }
+
+        // Update customer balance
+        const customer = appData.customers[phone];
+
+        // Simply use the balance from invoice summary - no separate calculation needed
+        // This ensures customer ledger exactly matches what was shown on invoice
+        customer.balance = balance;
+        customer.invoices.push(invoice.id);
+
+        saveData();
+        renderInventory();
+        renderCustomers();
+        populateCustomerDatalist();
+        updateAccountingStats();
+
+        printInvoice(invoice);
+
+        // Clear form
+        document.getElementById("customerPhone").value = "";
+        document.getElementById("customerName").value = "";
+        document.getElementById("invoiceItems").innerHTML = "";
+        document.getElementById("hasOldJewellery").checked = false;
+        document.getElementById("oldJewellerySection").style.display = "none";
+        
+        // Clear old jewellery calculation fields
+        document.getElementById("oldMetalWeight").value = "";
+        document.getElementById("oldMetalTounch").value = "";
+        document.getElementById("oldMetalRate10g").value = "";
+        document.getElementById("oldMetalCalculatedAmount").value = "";
+        document.getElementById("oldJewelleryAmount").value = "";
+        document.getElementById("oldJewelleryDesc").value = "";
+        
+        document.getElementById("amountReceived").value = "";
+        document.getElementById("finalDiscountInput").value = "0";
+        document.getElementById("previousBalanceRow").style.display = "none";
+        updateInvoiceSummary();
+
+        showNotification("✓ बिल बन गया!", "success");
+      }
+
+      function printInvoice(invoice) {
+        const printDiv = document.getElementById("printInvoice");
+        const date = new Date(invoice.date).toLocaleString("hi-IN");
+
+        let itemsHTML = "";
+
+        if (invoice.items && invoice.items.length > 0) {
+          invoice.items.forEach((item, index) => {
+            let metalRatePerGram = 0;
+            if (item.metalType === "gold") {
+              metalRatePerGram = appData.metalRates.gold / 10;
+            } else if (item.metalType === "silver") {
+              metalRatePerGram = appData.metalRates.silver / 10;
+            }
+
+            const stoneWeight =
+              item.metalType === "gold" ? item.stoneWeight || 0 : 0;
+            const effectiveWeight = Math.max(item.weight - stoneWeight, 0);
+            const metalValue = effectiveWeight * metalRatePerGram * item.qty;
+
+            let labourAmount = 0;
+            let labourText = "";
+            switch (item.labourType) {
+              case "pg":
+                labourAmount = item.labourValue * item.weight * item.qty;
+                labourText = `${item.labourValue}/g`;
+                break;
+              case "ppc":
+                labourAmount = item.labourValue * item.qty;
+                labourText = `${item.labourValue}/pc`;
+                break;
+              case "pkg":
+                labourAmount =
+                  (item.labourValue * item.weight * item.qty) / 1000;
+                labourText = `${item.labourValue}/kg`;
+                break;
+              case "fixed":
+                labourAmount = item.labourValue;
+                labourText = `Fixed ₹${item.labourValue}`;
+                break;
+              case "percent":
+                labourAmount = (metalValue * item.labourValue) / 100;
+                labourText = `${item.labourValue}%`;
+                break;
+            }
+
+            const stoneCharges = item.stoneCharges || 0;
+            let extraChargesSum = 0;
+            if (item.extraCharges && item.extraCharges.length) {
+              item.extraCharges.forEach((ec) => {
+                extraChargesSum += parseFloat(ec.amount) || 0;
+              });
+            }
+            labourAmount += stoneCharges + extraChargesSum;
+
+            const metalIcon = item.metalType === "gold" ? "🪙" : "⚪";
+
+            itemsHTML += `
+            <tr>
+                <td>${index + 1}</td>
+                <td>${metalIcon} ${item.name}</td>
+                <td>${item.weight}g</td>
+                <td>${item.qty}</td>
+                <td>₹${metalValue.toFixed(2)}</td>
+                <td>${labourText}</td>
+                <td>₹${labourAmount.toFixed(2)}</td>
+                <td>₹${(metalValue + labourAmount).toFixed(2)}</td>
+            </tr>
+            ${
+              item.metalType === "gold" && (item.stoneWeight || 0) > 0
+                ? `<tr><td></td><td colspan="7">💎 Stone Weight: ${
+                    item.stoneWeight
+                  }g, Stone Charges: ₹${(item.stoneCharges || 0).toFixed(
+                    2
+                  )}</td></tr>`
+                : ""
+            }
+            ${
+              item.extraCharges && item.extraCharges.length
+                ? item.extraCharges
+                    .map(
+                      (ec) =>
+                        `<tr><td></td><td colspan="7">➕ ${
+                          ec.desc || "Extra"
+                        }: ₹${(parseFloat(ec.amount) || 0).toFixed(
+                          2
+                        )}</td></tr>`
+                    )
+                    .join("")
+                : ""
+            }
+        `;
+          });
+        } else {
+          // Payment-only invoice (advance, balance payment, etc)
+          const paymentType =
+            invoice.payment.type === "advance"
+              ? "एडवांस भुगतान"
+              : invoice.oldJewellery
+              ? "पुरानी धातु"
+              : "बाकी भुगतान";
+          itemsHTML = `
+                    <tr>
+                        <td colspan="8" style="text-align: center; padding: 20px; font-size: 16px;">
+                            ${paymentType}
+                        </td>
+                    </tr>
+                `;
+        }
+
+        printDiv.innerHTML = `
+                <div class="print-header">
+                    <h1 style="margin: 0; font-size: 28px; color: #667eea;">✨ सांवरिया जी ज्वैलर्स ✨</h1>
+                    <div>
+                        <p style="margin: 3px 0; font-size: 14px;"><strong>Ugam Raj Soni</strong></p>
+                        <p style="margin: 3px 0; font-size: 13px;">📞 9351896678</p>
+                        <p style="margin: 3px 0; font-size: 13px;">📍 36, रुई कटला, नाइयों की ढाल के बाहर,Pali, India</p>
+                    </div>
+
+                    <p style="margin-top: 5px; color: red; font-size: 11px;"><strong>This is not a Tax Invoice</strong></p>
+                </div>
+
+                <div class="invoice-info">
+                    <div>
+                        <p><strong>बिल क्रमांक:</strong> ${invoice.id}</p>
+                        <p><strong>तारीख:</strong> ${date}</p>
+                    </div>
+                    <div>
+                        <p><strong>ग्राहक का नाम:</strong> ${
+                          invoice.customer.name
+                        }</p>
+                        <p><strong>फोन:</strong> ${invoice.customer.phone}</p>
+                    </div>
+                </div>
+
+                <table class="print-table">
+                    <thead>
+                        <tr>
+                            <th>क्र.</th>
+                            <th>आइटम</th>
+                            <th>वजन</th>
+                            <th>मात्रा</th>
+                            <th>धातु मूल्य</th>
+                            <th>मजदूरी</th>
+                            <th>मजदूरी राशि</th>
+                            <th>कुल</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${itemsHTML}
+                    </tbody>
+                </table>
+
+                <div style="margin-top: 20px; text-align: right;">
+                    <p><strong>कुल धातु मूल्य:</strong> ₹${invoice.totals.metalValue.toFixed(
+                      2
+                    )}</p>
+                    <p><strong>कुल मजदूरी:</strong> ₹${invoice.totals.labour.toFixed(
+                      2
+                    )}</p>
+                    <p><strong>उप-योग:</strong> ₹${invoice.totals.subtotal.toFixed(
+                      2
+                    )}</p>
+                    ${
+                      invoice.oldJewellery
+                        ? `<p><strong>पुरानी धातु (-):</strong> ₹${invoice.oldJewellery.amount.toFixed(
+                            2
+                          )}</p>`
+                        : ""
+                    }
+                    ${
+                      invoice.oldJewellery && invoice.oldJewellery.description
+                        ? `<p style="font-size: 12px;"><em>${invoice.oldJewellery.description}</em></p>`
+                        : ""
+                    }
+                    <p style="font-size: 20px; margin-top: 10px;"><strong>कुल राशि:</strong> ₹${invoice.totals.grandTotal.toFixed(
+                      2
+                    )}</p>
+                    ${
+                      invoice.totals.finalDiscount > 0
+                        ? `<p style="color: #28a745;"><strong>छूट/एडजस्टमेंट (-):</strong> ₹${invoice.totals.finalDiscount.toFixed(
+                            2
+                          )}</p>`
+                        : ""
+                    }
+                    ${
+                      invoice.totals.finalDiscount > 0
+                        ? `<p style="font-size: 18px;"><strong>छूट के बाद:</strong> ₹${invoice.totals.discountedTotal.toFixed(
+                            2
+                          )}</p>`
+                        : ""
+                    }
+                    
+                    ${
+                      invoice.totals.previousBalance !== 0
+                        ? `
+                        <div style="border-top: 2px dashed #667eea; margin: 15px 0; padding-top: 10px;">
+                            ${
+                              invoice.totals.previousBalance > 0
+                                ? `<p style="color: #dc3545; font-size: 16px;"><strong>⚠️ पिछली बाकी (+):</strong> ₹${invoice.totals.previousBalance.toFixed(
+                                    2
+                                  )}</p>
+                                 <p style="font-size: 18px;"><strong>कुल देय राशि:</strong> ₹${invoice.totals.totalWithPrevious.toFixed(
+                                   2
+                                 )}</p>`
+                                : `<p style="color: #28a745; font-size: 16px;"><strong>💰 पिछली एडवांस राशि (-):</strong> ₹${Math.abs(
+                                    invoice.totals.previousBalance
+                                  ).toFixed(2)}</p>
+                                 <p style="font-size: 18px;"><strong>एडवांस के बाद देय:</strong> ₹${invoice.totals.totalWithPrevious.toFixed(
+                                   2
+                                 )}</p>`
+                            }
+                        </div>
+                    `
+                        : ""
+                    }
+                    
+                    <p style="margin-top: 10px;"><strong>नकद प्राप्त राशि:</strong> ₹${invoice.payment.received.toFixed(
+                      2
+                    )}</p>
+                    <p style="font-size: 20px; margin-top: 5px; color: ${
+                      invoice.totals.balance > 0
+                        ? "red"
+                        : invoice.totals.balance < 0
+                        ? "green"
+                        : "black"
+                    };">
+                        <strong>${
+                          invoice.totals.balance > 0
+                            ? "⚠️ बाकी राशि:"
+                            : invoice.totals.balance < 0
+                            ? "✅ अतिरिक्त जमा:"
+                            : "✅ पूर्ण भुगतान:"
+                        }</strong> 
+                        ₹${Math.abs(invoice.totals.balance).toFixed(2)}
+                    </p>
+                </div>
+
+                <div style="margin-top: 40px; border-top: 2px solid #000; padding-top: 15px;">
+                    <div style="display: flex; justify-content: space-between; align-items: flex-end;">
+                        <div style="text-align: center;">
+                            <p style="margin-bottom: 50px; font-size: 14px; color: #666;">ग्राहक को नोट:</p>
+                            <p style="font-size: 11px; color: #666;">कृपया बिल संभाल कर रखें</p>
+                        </div>
+                        <div style="text-align: center;">
+                            <p style="margin-bottom: 50px; font-size: 14px;"><strong>दुकान हस्ताक्षर एवं मुहर</strong></p>
+                            <div style="border-top: 2px solid #000; width: 150px;"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px; text-align: center; border-top: 1px dashed #666; padding-top: 15px;">
+                    <p style="font-size: 16px; font-weight: bold;">धन्यवाद! फिर आइएगा! 🙏</p>
+                    <p style="font-size: 12px; margin-top: 5px; color: #666;">Thank you for your business!</p>
+                                        <p style="margin: 8px 0; font-size: 12px; background: #fff3cd; padding: 5px; border-radius: 5px; color: #856404;">
+                        🏆 <strong>Hallmark Jewellery</strong> - तैयार मिलती है और ऑर्डर से तैयार कराई जाती है
+                    </p>
+                </div>
+                
+                <!-- Print Buttons (Hidden in print) -->
+                <div class="no-print" style="margin-top: 30px; display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                    <button onclick="printInvoiceNow()" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; border: none; padding: 15px 30px; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                        🖨️ प्रिंट करें
+                    </button>
+                    <button onclick="saveAsPDF()" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white; border: none; padding: 15px 30px; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                        💾 PDF सेव करें
+                    </button>
+                    <button onclick="closeInvoicePreview()" style="background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); color: white; border: none; padding: 15px 30px; border-radius: 8px; font-size: 18px; font-weight: bold; cursor: pointer; box-shadow: 0 4px 8px rgba(0,0,0,0.2);">
+                        ❌ बंद करें
+                    </button>
+                </div>
+            `;
+
+        // Show preview without automatic print
+        printDiv.style.display = "block";
+
+        // Scroll to top to see the invoice
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      }
+
+      // Function to manually print the invoice
+      function printInvoiceNow() {
+        window.print();
+      }
+
+      // Function to save as PDF (uses browser's print to PDF feature)
+      function saveAsPDF() {
+        alert(
+          '📄 अपने ब्राउज़र के Print dialog में "Save as PDF" या "Print to PDF" चुनें'
+        );
+        window.print();
+      }
+
+      // Function to close the invoice preview
+      function closeInvoicePreview() {
+        const printDiv = document.getElementById("printInvoice");
+        printDiv.style.display = "none";
+        printDiv.innerHTML = "";
+      }
+
+      function addExtraCharge(btn) {
+        const panel = btn.closest(".stone-panel");
+        if (!panel) return;
+        const list = panel.querySelector(".extra-charges-list");
+        const row = document.createElement("div");
+        row.className = "extra-charge-row";
+        row.innerHTML = `
+        <input type="text" class="extra-charge-desc" placeholder="विवरण (जैसे: पॉलिश, सेटिंग)" oninput="updateInvoiceSummary()">
+        <input type="number" class="extra-charge-amount" placeholder="राशि (₹)" step="0.01" oninput="updateInvoiceSummary()">
+        <button type="button" class="remove-extra-btn">✕</button>
+    `;
+        row.querySelector(".remove-extra-btn").onclick = function () {
+          row.remove();
+          updateInvoiceSummary();
+        };
+        list.appendChild(row);
+        updateInvoiceSummary();
+      }
+
+      // Customer Ledger
+      function renderCustomers() {
+        const tbody = document.getElementById("customersBody");
+        tbody.innerHTML = "";
+
+        Object.values(appData.customers).forEach((customer) => {
+          const row = tbody.insertRow();
+          row.innerHTML = `
+                    <td>${customer.name}</td>
+                    <td>${customer.phone}</td>
+                    <td>₹${customer.totalPurchase.toFixed(2)}</td>
+                    <td style="color: ${
+                      customer.balance > 0
+                        ? "#dc3545"
+                        : customer.balance < 0
+                        ? "#28a745"
+                        : "#666"
+                    }; font-weight: bold;">
+                        ${
+                          customer.balance < 0
+                            ? "(+) ₹" + Math.abs(customer.balance).toFixed(2)
+                            : "₹" + customer.balance.toFixed(2)
+                        }
+                    </td>
+                    <td>
+                        <div class="action-buttons">
+                            <button class="btn-view" onclick="viewCustomerDetails('${
+                              customer.phone
+                            }')">देखें</button>
+                        </div>
+                    </td>
+                `;
+        });
+      }
+
+      function formatLedgerItem(item) {
+        const metalIcon = item.metalType === "gold" ? "🪙" : "⚪";
+        const labourText =
+          item.labourType === "pg"
+            ? item.labourValue + "/g"
+            : item.labourType === "ppc"
+            ? item.labourValue + "/pc"
+            : item.labourType === "pkg"
+            ? item.labourValue + "/kg"
+            : item.labourType === "fixed"
+            ? "₹" + item.labourValue
+            : item.labourValue + "%";
+
+        const stonePart =
+          item.metalType === "gold" &&
+          ((item.stoneWeight || 0) > 0 || (item.stoneCharges || 0) > 0)
+            ? `<p style="margin:0;"><strong>स्टोन वजन:</strong> ${
+                item.stoneWeight || 0
+              }g</p>
+                   <p style="margin:0;"><strong>स्टोन चार्ज:</strong> ₹${(
+                     item.stoneCharges || 0
+                   ).toFixed(2)}</p>`
+            : "";
+
+        const extrasPart =
+          item.extraCharges && item.extraCharges.length
+            ? `<div style="margin-top:4px;"><strong>अतिरिक्त चार्ज:</strong> ${item.extraCharges
+                .map((ec) => {
+                  const d = (ec.desc || "अन्य")
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
+                  const a = (parseFloat(ec.amount) || 0).toFixed(2);
+                  return d + ": ₹" + a;
+                })
+                .join(", ")}</div>`
+            : "";
+
+        return `
+                <div style="background:#f8f9fa; padding:10px; margin:8px 0; border-radius:5px; border-left:3px solid #667eea;">
+                    <p style="margin:0; font-weight:bold; font-size:14px;">${metalIcon} ${item.name}</p>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px; margin-top:5px; font-size:13px;">
+                        <p style="margin:0;"><strong>वजन:</strong> ${item.weight}g</p>
+                        <p style="margin:0;"><strong>मात्रा:</strong> ${item.qty}</p>
+                        <p style="margin:0;"><strong>मजदूरी:</strong> ${labourText}</p>
+                        ${stonePart}
+                    </div>
+                    ${extrasPart}
+                </div>`;
+      }
+
+      function viewCustomerDetails(phone) {
+        const customer = appData.customers[phone];
+        if (!customer) return;
+
+        // Get all invoices for this customer - sorted latest first
+        const customerInvoices = appData.invoices
+          .filter((inv) => inv.customer.phone === phone)
+          .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+        let invoicesHTML = "";
+        if (customerInvoices.length > 0) {
+          customerInvoices.forEach((inv, index) => {
+            const date = new Date(inv.date).toLocaleDateString("hi-IN");
+            const time = new Date(inv.date).toLocaleTimeString("hi-IN");
+
+            // Build items list
+            let itemsList = "";
+            if (inv.items && inv.items.length > 0) {
+              inv.items.forEach((item) => {
+                itemsList += formatLedgerItem(item);
+              });
+            } else {
+              // Payment-only invoice
+              const paymentType =
+                inv.payment.type === "advance"
+                  ? "🎁 एडवांस भुगतान"
+                  : inv.oldJewellery
+                  ? "♻️ पुरानी धातु"
+                  : "💰 बाकी भुगतान";
+              itemsList = `
+                            <div style="background: #e7f3ff; padding: 15px; margin: 8px 0; border-radius: 5px; border-left: 3px solid #2196F3; text-align: center;">
+                                <p style="margin: 0; font-weight: bold; font-size: 14px; color: #2196F3;">${paymentType}</p>
+                            </div>
+                        `;
+            }
+
+            invoicesHTML += `
+                        <div class="card" style="margin-bottom: 15px; border-left: 4px solid ${
+                          inv.totals.balance > 0 ? "#dc3545" : "#28a745"
+                        };">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; flex-wrap: wrap; gap: 10px;">
+                                <div>
+                                    <h4 style="margin: 0; color: #667eea; font-size: 16px;">बिल #${
+                                      inv.id
+                                    }</h4>
+                                    <p style="margin: 5px 0 0 0; color: #666; font-size: 13px;">${date} ${time}</p>
+                                </div>
+                                <div style="text-align: right;">
+                                    <p style="font-size: 18px; font-weight: bold; margin: 0; color: ${
+                                      inv.totals.balance > 0
+                                        ? "#dc3545"
+                                        : "#28a745"
+                                    };">
+                                        ₹${inv.totals.grandTotal.toFixed(2)}
+                                    </p>
+                                    <p style="font-size: 13px; margin: 5px 0 0 0;">
+                                        ${
+                                          inv.totals.balance > 0
+                                            ? "🔴 बाकी: ₹" +
+                                              inv.totals.balance.toFixed(2)
+                                            : "✅ पूरा भुगतान"
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div style="margin: 10px 0;">
+                                <h5 style="margin: 0 0 8px 0; color: #667eea; font-size: 14px;">📦 आइटम्स:</h5>
+                                ${itemsList}
+                            </div>
+
+                            <div style="background: #f8f9fa; padding: 12px; border-radius: 5px; margin-top: 12px;">
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 13px;">
+                                    <div>
+                                        <p style="margin: 3px 0;"><strong>धातु मूल्य:</strong> ₹${inv.totals.metalValue.toFixed(
+                                          2
+                                        )}</p>
+                                        <p style="margin: 3px 0;"><strong>मजदूरी:</strong> ₹${inv.totals.labour.toFixed(
+                                          2
+                                        )}</p>
+                                        ${
+                                          inv.oldJewellery
+                                            ? `<p style="margin: 3px 0;"><strong>पुरानी धातु:</strong> ₹${inv.oldJewellery.amount.toFixed(
+                                                2
+                                              )}</p>
+                                              ${inv.oldJewellery.calculation && (inv.oldJewellery.calculation.weight > 0 || inv.oldJewellery.calculation.tounch > 0 || inv.oldJewellery.calculation.rate10g > 0)
+                                                ? `<p style="margin: 3px 0; font-size: 12px; color: #666;">
+                                                    (वजन: ${inv.oldJewellery.calculation.weight}g, 
+                                                    टच: ${inv.oldJewellery.calculation.tounch}, 
+                                                    भाव: ₹${inv.oldJewellery.calculation.rate10g}/10g)
+                                                  </p>`
+                                                : ""
+                                              }`
+                                            : ""
+                                        }
+                                        ${
+                                          inv.totals.finalDiscount > 0
+                                            ? `<p style="margin: 3px 0; color: #28a745;"><strong>छूट:</strong> -₹${inv.totals.finalDiscount.toFixed(
+                                                2
+                                              )}</p>`
+                                            : ""
+                                        }
+                                    </div>
+                                    <div>
+                                        <p style="margin: 3px 0;"><strong>कुल राशि:</strong> ₹${inv.totals.grandTotal.toFixed(
+                                          2
+                                        )}</p>
+                                        ${
+                                          inv.totals.finalDiscount > 0
+                                            ? `<p style="margin: 3px 0;"><strong>छूट के बाद:</strong> ₹${inv.totals.discountedTotal.toFixed(
+                                                2
+                                              )}</p>`
+                                            : ""
+                                        }
+                                        <p style="margin: 3px 0;"><strong>प्राप्त:</strong> ₹${inv.payment.received.toFixed(
+                                          2
+                                        )}</p>
+                                        <p style="margin: 3px 0; color: ${
+                                          inv.totals.balance > 0
+                                            ? "red"
+                                            : "green"
+                                        }; font-weight: bold;"><strong>बाकी:</strong> ₹${inv.totals.balance.toFixed(
+              2
+            )}</p>
+                                    </div>
+                                </div>
+                                ${
+                                  inv.oldJewellery &&
+                                  inv.oldJewellery.description
+                                    ? `<p style="margin: 8px 0 0 0; font-size: 12px; color: #666;"><em>पुरानी धातु: ${inv.oldJewellery.description}</em></p>`
+                                    : ""
+                                }
+                            </div>
+                        </div>
+                    `;
+          });
+        } else {
+          invoicesHTML =
+            '<p style="text-align: center; color: #666; margin-top: 20px;">अभी तक कोई बिल नहीं है।</p>';
+        }
+
+        const detailContent = document.getElementById("customerDetailContent");
+        detailContent.innerHTML = `
+                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 20px; border-radius: 10px; margin: 15px 0; color: white;">
+                    <h3 style="margin: 0 0 10px 0; font-size: 18px;">${
+                      customer.name
+                    }</h3>
+                    <p style="margin: 5px 0; opacity: 0.9; font-size: 14px;">📞 ${
+                      customer.phone
+                    }</p>
+                    <p style="margin: 5px 0; opacity: 0.9; font-size: 14px;">📄 कुल बिल: ${
+                      customerInvoices.length
+                    }</p>
+                    
+                    <div style="margin-top: 15px; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.3);">
+                        <p style="margin: 5px 0; opacity: 0.9; font-size: 13px;">कुल खरीद</p>
+                        <p style="font-size: 22px; font-weight: bold; margin: 5px 0;">₹${customer.totalPurchase.toFixed(
+                          2
+                        )}</p>
+                        <p style="font-size: 16px; margin: 10px 0; ${
+                          customer.balance > 0
+                            ? "background: #fff; color: #dc3545; padding: 8px; border-radius: 5px;"
+                            : ""
+                        }">
+                            ${
+                              customer.balance > 0
+                                ? "⚠️ बाकी: ₹" + customer.balance.toFixed(2)
+                                : customer.balance < 0
+                                ? "✅ राशि जमा है: ₹" +
+                                  Math.abs(customer.balance).toFixed(2)
+                                : "✅ कोई बकाया नहीं"
+                            }
+                        </p>
+                    </div>
+                </div>
+
+                <h3 style="color: #667eea; margin: 20px 0 15px 0; font-size: 17px;">📋 सभी बिल (${
+                  customerInvoices.length
+                })</h3>
+                ${invoicesHTML}
+            `;
+
+        document.getElementById("customerListView").style.display = "none";
+        document.getElementById("customerDetailView").style.display = "block";
+      }
+
+      function closeCustomerDetail() {
+        document.getElementById("customerDetailView").style.display = "none";
+        document.getElementById("customerListView").style.display = "block";
+      }
+
+      // Interest Business
+      function addInterestTransaction() {
+        const type = document.getElementById("transactionType").value;
+        const name = document.getElementById("transactionName").value.trim();
+        const amount =
+          parseFloat(document.getElementById("transactionAmount").value) || 0;
+        const rate =
+          parseFloat(document.getElementById("interestRate").value) || 0;
+        const date = document.getElementById("transactionDate").value;
+
+        if (!name || amount <= 0 || rate <= 0 || !date) {
+          alert("कृपया सभी जानकारी भरें! (Please fill all information!)");
+          return;
+        }
+
+        appData.interestTransactions.push({
+          id: Date.now(),
+          type,
+          name,
+          amount,
+          rate,
+          date,
+          active: true,
+          interestPayments: [], // Track interest payments
+          totalInterestPaid: 0,
+        });
+
+        saveData();
+        renderInterestTransactions();
+        updateInterestStats();
+
+        // Clear form
+        document.getElementById("transactionName").value = "";
+        document.getElementById("transactionAmount").value = "";
+        document.getElementById("interestRate").value = "";
+        document.getElementById("transactionDate").value = "";
+
+        alert("लेन-देन जोड़ा गया! (Transaction added!)");
+      }
+
+      function renderInterestTransactions() {
+        const tbody = document.getElementById("interestBody");
+        if (!tbody) {
+          console.error("Interest body element not found");
+          return;
+        }
+        tbody.innerHTML = "";
+
+        const activeTransactions = appData.interestTransactions.filter(
+          (t) => t.active
+        );
+
+        if (activeTransactions.length === 0) {
+          tbody.innerHTML =
+            '<tr><td colspan="9" style="text-align: center; padding: 20px;">कोई सक्रिय लेन-देन नहीं है।</td></tr>';
+        } else {
+          activeTransactions.forEach((trans) => {
+            // Initialize tracking fields if they don't exist (for old data)
+            if (!trans.interestPayments) trans.interestPayments = [];
+            if (trans.totalInterestPaid === undefined)
+              trans.totalInterestPaid = 0;
+
+            const monthsElapsed = calculateMonths(
+              new Date(trans.date),
+              new Date()
+            );
+            const totalInterest = calculateTotalInterest(trans);
+            const pendingInterest = totalInterest - trans.totalInterestPaid;
+            const paidPrincipal = trans.totalPrincipalPaid || 0;
+            const pendingPrincipal = trans.amount - paidPrincipal;
+
+            const row = tbody.insertRow();
+            row.innerHTML = `
+                        <td><strong>${trans.name}</strong></td>
+                        <td>${
+                          trans.type === "lent"
+                            ? "📤 दिया"
+                            : trans.type === "borrowed"
+                            ? "📥 लिया"
+                            : "📿 गहना"
+                        }</td>
+                        <td>₹${trans.amount.toFixed(2)}</td>
+                        <td>${trans.rate}%</td>
+                        <td>${new Date(trans.date).toLocaleDateString(
+                          "hi-IN"
+                        )}<br><small>${monthsElapsed} महीने</small></td>
+                        <td>₹${totalInterest.toFixed(2)}</td>
+                        <td style="color: green; font-weight: bold;">₹${trans.totalInterestPaid.toFixed(
+                          2
+                        )}</td>
+                        <td style="color: ${
+                          pendingInterest > 0 ? "red" : "green"
+                        }; font-weight: bold;">₹${pendingInterest.toFixed(
+              2
+            )}</td>
+                        <td style="color: green; font-weight: bold;">₹${paidPrincipal.toFixed(
+                          2
+                        )}</td>
+                        <td style="color: ${
+                          pendingPrincipal > 0 ? "red" : "green"
+                        }; font-weight: bold;">₹${pendingPrincipal.toFixed(
+              2
+            )}</td>
+                        <td>
+                            <div class="action-buttons" style="display: flex; flex-direction: column; gap: 5px;">
+                                <button class="btn-edit" style="font-size: 12px; padding: 8px;" onclick="payInterest(${
+                                  trans.id
+                                })">ब्याज जमा</button>
+                                <button class="btn" style="font-size: 12px; padding: 8px; background: #17a2b8;" onclick="payPrincipal(${
+                                  trans.id
+                                })">मूलधन जमा</button>
+                                <button class="btn-view" style="font-size: 12px; padding: 8px;" onclick="viewInterestHistory(${
+                                  trans.id
+                                })">इतिहास देखें</button>
+                                <button class="btn" style="font-size: 12px; padding: 8px; background: #28a745;" onclick="squareOff(${
+                                  trans.id
+                                })">स्क्वायर ऑफ</button>
+                            </div>
+                        </td>
+                    `;
+          });
+        }
+
+        updateInterestStats();
+        renderClosedTransactions();
+      }
+
+      function renderClosedTransactions() {
+        const tbody = document.getElementById("closedInterestBody");
+        if (!tbody) {
+          console.log("closedInterestBody element not found yet");
+          return;
+        }
+        tbody.innerHTML = "";
+
+        const closedTransactions = appData.interestTransactions.filter(
+          (t) => !t.active
+        );
+
+        if (closedTransactions.length === 0) {
+          tbody.innerHTML =
+            '<tr><td colspan="8" style="text-align: center; padding: 20px;">कोई बंद लेन-देन नहीं है।</td></tr>';
+        } else {
+          closedTransactions.forEach((trans) => {
+            const startDate = new Date(trans.date);
+            const endDate = trans.closedDate
+              ? new Date(trans.closedDate)
+              : new Date();
+            const monthsElapsed = calculateMonths(startDate, endDate);
+            const totalInterest = calculateTotalInterest(trans);
+
+            const row = tbody.insertRow();
+            row.innerHTML = `
+                        <td><strong>${trans.name}</strong></td>
+                        <td>${
+                          trans.type === "lent" ? "📤 दिया" : "📥 लिया"
+                        }</td>
+                        <td>₹${trans.amount.toFixed(2)}</td>
+                        <td>${trans.rate}%</td>
+                        <td>${startDate.toLocaleDateString("hi-IN")}</td>
+                        <td>${endDate.toLocaleDateString(
+                          "hi-IN"
+                        )}<br><small>${monthsElapsed} महीने</small></td>
+                        <td>₹${totalInterest.toFixed(2)}<br><small>जमा: ₹${
+              trans.totalInterestPaid
+                ? trans.totalInterestPaid.toFixed(2)
+                : "0.00"
+            }</small></td>
+                        <td>
+                            <button class="btn-view" style="font-size: 12px; padding: 8px;" onclick="viewInterestHistory(${
+                              trans.id
+                            })">इतिहास देखें</button>
+                        </td>
+                    `;
+          });
+        }
+      }
+
+      function toggleClosedTransactions() {
+        const view = document.getElementById("closedTransactionsView");
+        if (view.style.display === "none") {
+          view.style.display = "block";
+        } else {
+          view.style.display = "none";
+        }
+      }
+
+      function calculateMonths(startDate, endDate) {
+        const months =
+          (endDate.getFullYear() - startDate.getFullYear()) * 12 +
+          (endDate.getMonth() - startDate.getMonth());
+        return Math.max(0, months);
+      }
+
+      // Calculate interest considering principal payments
+      function calculateTotalInterest(trans, endDate = null) {
+        if (!endDate)
+          endDate = trans.active
+            ? new Date()
+            : trans.closedDate
+            ? new Date(trans.closedDate)
+            : new Date();
+
+        const startDate = new Date(trans.date);
+
+        // If no principal payments, simple calculation
+        if (!trans.principalPayments || trans.principalPayments.length === 0) {
+          const monthsElapsed = calculateMonths(startDate, endDate);
+          return (trans.amount * trans.rate * monthsElapsed) / 100;
+        }
+
+        // Calculate interest with principal adjustments
+        let totalInterest = 0;
+        let currentPrincipal = trans.amount;
+        let lastDate = startDate;
+
+        // Sort principal payments by date
+        const sortedPayments = [...trans.principalPayments].sort(
+          (a, b) => new Date(a.date) - new Date(b.date)
+        );
+
+        sortedPayments.forEach((payment) => {
+          const paymentDate = new Date(payment.date);
+          if (paymentDate > endDate) return; // Don't count future payments
+
+          // Calculate interest for period before this payment
+          const months = calculateMonths(lastDate, paymentDate);
+          totalInterest += (currentPrincipal * trans.rate * months) / 100;
+
+          // Reduce principal
+          currentPrincipal -= payment.amount;
+          lastDate = paymentDate;
+        });
+
+        // Calculate remaining interest from last payment to end date
+        const remainingMonths = calculateMonths(lastDate, endDate);
+        totalInterest +=
+          (currentPrincipal * trans.rate * remainingMonths) / 100;
+
+        return totalInterest;
+      }
+
+      // Modal Management
+      let currentTransactionId = null;
+      let currentPaymentType = "interest"; // 'interest' or 'principal'
+      let isSquareOff = false;
+
+      function openModal(modalId) {
+        document.getElementById(modalId).style.display = "block";
+      }
+
+      function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+        if (modalId === "payInterestModal") {
+          document.getElementById("payInterestAmount").value = "";
+        }
+        currentTransactionId = null;
+      }
+
+      // Close modal when clicking outside
+      window.onclick = function (event) {
+        if (event.target.classList.contains("modal")) {
+          event.target.style.display = "none";
+        }
+      };
+
+      function payInterest(id) {
+        console.log("payInterest called with id:", id);
+        currentPaymentType = "interest";
+        const trans = appData.interestTransactions.find((t) => t.id === id);
+        if (!trans) {
+          showNotification("लेन-देन नहीं मिला!", "error");
+          return;
+        }
+
+        currentTransactionId = id;
+
+        const monthsElapsed = calculateMonths(new Date(trans.date), new Date());
+        const totalInterest = calculateTotalInterest(trans);
+        const pendingInterest = totalInterest - trans.totalInterestPaid;
+
+        if (pendingInterest <= 0) {
+          showNotification("कोई ब्याज बाकी नहीं है!", "success");
+          return;
+        }
+
+        const content = document.getElementById("payInterestContent");
+        content.innerHTML = `
+                <div class="info-box">
+                    <h4 style="margin: 0 0 10px 0; color: #2196F3;">📋 ${
+                      trans.name
+                    }</h4>
+                    <p style="margin: 5px 0;"><strong>मूल राशि:</strong> ₹${trans.amount.toFixed(
+                      2
+                    )}</p>
+                    <p style="margin: 5px 0;"><strong>ब्याज दर:</strong> ${
+                      trans.rate
+                    }% प्रति माह</p>
+                    <p style="margin: 5px 0;"><strong>समय:</strong> ${monthsElapsed} महीने</p>
+                </div>
+                <div class="stat-grid-modal">
+                    <div class="stat-box" style="background: #e7f3ff; color: #2196F3;">
+                        <p>कुल ब्याज</p>
+                        <p>₹${totalInterest.toFixed(2)}</p>
+                    </div>
+                    <div class="stat-box" style="background: #d4edda; color: #28a745;">
+                        <p>जमा</p>
+                        <p>₹${trans.totalInterestPaid.toFixed(2)}</p>
+                    </div>
+                    <div class="stat-box" style="background: #f8d7da; color: #dc3545;">
+                        <p>बाकी</p>
+                        <p>₹${pendingInterest.toFixed(2)}</p>
+                    </div>
+                </div>
+            `;
+
+        // Update input field properties
+        const inputField = document.getElementById("payInterestAmount");
+        inputField.max = pendingInterest.toFixed(2);
+        inputField.value = "";
+
+        // Update label
+        document.getElementById("paymentInputLabel").textContent =
+          "जमा करने की ब्याज राशि (₹)";
+        document
+          .getElementById("payInterestModal")
+          .querySelector(".modal-header h3").textContent = "💰 ब्याज जमा करें";
+        openModal("payInterestModal");
+      }
+
+      function confirmPayInterest() {
+        if (currentPaymentType === "principal") {
+          confirmPayPrincipal();
+          return;
+        }
+
+        const amount = parseFloat(
+          document.getElementById("payInterestAmount").value
+        );
+
+        if (!amount || amount <= 0) {
+          showNotification("कृपया सही राशि दर्ज करें!", "error");
+          return;
+        }
+
+        const trans = appData.interestTransactions.find(
+          (t) => t.id === currentTransactionId
+        );
+        if (!trans) return;
+
+        const monthsElapsed = calculateMonths(new Date(trans.date), new Date());
+        const totalInterest = calculateTotalInterest(trans);
+        const pendingInterest = totalInterest - trans.totalInterestPaid;
+
+        if (amount > pendingInterest) {
+          showNotification("राशि बाकी ब्याज से ज्यादा नहीं हो सकती!", "error");
+          return;
+        }
+
+        trans.interestPayments.push({
+          date: new Date().toISOString(),
+          amount: amount,
+        });
+        trans.totalInterestPaid += amount;
+
+        saveData();
+        renderInterestTransactions();
+        closeModal("payInterestModal");
+        showNotification(
+          `✓ ₹${amount.toFixed(2)} ब्याज जमा हो गया!`,
+          "success"
+        );
+      }
+
+      function viewInterestHistory(id) {
+        console.log("viewInterestHistory called with id:", id);
+        const trans = appData.interestTransactions.find((t) => t.id === id);
+        if (!trans) {
+          showNotification("लेन-देन नहीं मिला!", "error");
+          return;
+        }
+
+        const startDate = new Date(trans.date);
+        const endDate = trans.active
+          ? new Date()
+          : trans.closedDate
+          ? new Date(trans.closedDate)
+          : new Date();
+        const monthsElapsed = calculateMonths(startDate, endDate);
+        const totalInterest = calculateTotalInterest(trans);
+        const pendingInterest = totalInterest - (trans.totalInterestPaid || 0);
+
+        let statusBadge = "";
+        if (!trans.active) {
+          statusBadge = `<div style="background: #6c757d; color: white; padding: 8px; border-radius: 5px; text-align: center; margin-bottom: 10px; font-weight: bold;">✓ बंद (${new Date(
+            trans.closedDate
+          ).toLocaleDateString("hi-IN")})</div>`;
+        }
+
+        let paymentsHTML = "";
+
+        // Combine both interest and principal payments with chronological sorting
+        const allPayments = [];
+
+        if (trans.interestPayments && trans.interestPayments.length > 0) {
+          trans.interestPayments.forEach((payment, index) => {
+            allPayments.push({
+              type: "interest",
+              date: payment.date,
+              amount: payment.amount,
+            });
+          });
+        }
+
+        if (trans.principalPayments && trans.principalPayments.length > 0) {
+          trans.principalPayments.forEach((payment, index) => {
+            allPayments.push({
+              type: "principal",
+              date: payment.date,
+              amount: payment.amount,
+            });
+          });
+        }
+
+        if (allPayments.length > 0) {
+          // Sort by date - latest first
+          allPayments.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+          paymentsHTML = `
+                    <h4 style="color: #667eea; margin: 15px 0 10px 0; font-size: 16px;">💰 भुगतान इतिहास</h4>
+                    <div style="max-height: 250px; overflow-y: auto;">
+                `;
+          allPayments.forEach((payment, index) => {
+            const typeLabel = payment.type === "interest" ? "ब्याज" : "मूलधन";
+            const typeColor =
+              payment.type === "interest" ? "#28a745" : "#17a2b8";
+            const typeIcon = payment.type === "interest" ? "📊" : "💰";
+
+            paymentsHTML += `
+                        <div style="background: #f8f9fa; padding: 12px; margin: 8px 0; border-radius: 8px; border-left: 4px solid ${typeColor};">
+                            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+                                <div>
+                                    <p style="margin: 0; font-weight: bold; font-size: 14px;">${typeIcon} ${typeLabel} भुगतान</p>
+                                    <p style="margin: 3px 0 0 0; font-size: 12px; color: #666;">${new Date(
+                                      payment.date
+                                    ).toLocaleDateString("hi-IN")}</p>
+                                </div>
+                                <p style="margin: 0; font-size: 18px; font-weight: bold; color: ${typeColor};">₹${payment.amount.toFixed(
+              2
+            )}</p>
+                            </div>
+                        </div>
+                    `;
+          });
+          paymentsHTML += `</div>`;
+        } else {
+          paymentsHTML = `
+                    <div class="warning-box" style="margin-top: 15px;">
+                        <p style="margin: 0; font-size: 14px;">⚠️ कोई भुगतान नहीं हुआ।</p>
+                    </div>
+                `;
+        }
+
+        const content = document.getElementById("interestHistoryContent");
+        content.innerHTML = `
+                ${statusBadge}
+                <div class="info-box">
+                    <h4 style="margin: 0 0 10px 0; color: #2196F3; font-size: 16px;">📊 ${
+                      trans.name
+                    }</h4>
+                    <div style="font-size: 13px;">
+                        <p style="margin: 5px 0;"><strong>प्रकार:</strong> ${
+                          trans.type === "lent"
+                            ? "📤 उधार दिया"
+                            : trans.type === "borrowed"
+                            ? "📥 उधार लिया"
+                            : "📿 गहना"
+                        }</p>
+                        <p style="margin: 5px 0;"><strong>मूल राशि:</strong> ₹${trans.amount.toFixed(
+                          2
+                        )}</p>
+                        <p style="margin: 5px 0;"><strong>चुकाया मूलधन:</strong> ₹${(
+                          trans.totalPrincipalPaid || 0
+                        ).toFixed(2)}</p>
+                        <p style="margin: 5px 0;"><strong>बाकी मूलधन:</strong> ₹${(
+                          trans.amount - (trans.totalPrincipalPaid || 0)
+                        ).toFixed(2)}</p>
+                        <p style="margin: 5px 0;"><strong>ब्याज दर:</strong> ${
+                          trans.rate
+                        }% प्रति माह</p>
+                        <p style="margin: 5px 0;"><strong>शुरुआत:</strong> ${startDate.toLocaleDateString(
+                          "hi-IN"
+                        )}</p>
+                        ${
+                          !trans.active
+                            ? `<p style="margin: 5px 0;"><strong>बंद:</strong> ${endDate.toLocaleDateString(
+                                "hi-IN"
+                              )}</p>`
+                            : ""
+                        }
+                        <p style="margin: 5px 0;"><strong>कुल समय:</strong> ${monthsElapsed} महीने</p>
+                        <p style="margin: 5px 0;"><strong>कुल भुगतान:</strong> ${
+                          (trans.interestPayments
+                            ? trans.interestPayments.length
+                            : 0) +
+                          (trans.principalPayments
+                            ? trans.principalPayments.length
+                            : 0)
+                        } बार</p>
+                    </div>
+                </div>
+
+                <div class="stat-grid-modal">
+                    <div class="stat-box" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                        <p>कुल ब्याज</p>
+                        <p>₹${totalInterest.toFixed(2)}</p>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%); color: white;">
+                        <p>जमा ब्याज</p>
+                        <p>₹${(trans.totalInterestPaid || 0).toFixed(2)}</p>
+                    </div>
+                    <div class="stat-box" style="background: linear-gradient(135deg, #eb3349 0%, #f45c43 100%); color: white;">
+                        <p>बाकी ब्याज</p>
+                        <p>₹${pendingInterest.toFixed(2)}</p>
+                    </div>
+                </div>
+
+                ${paymentsHTML}
+            `;
+
+        openModal("interestHistoryModal");
+      }
+
+      function closeTransaction(id) {
+        console.log("closeTransaction called with id:", id);
+        isSquareOff = false;
+        const trans = appData.interestTransactions.find((t) => t.id === id);
+        if (!trans) {
+          showNotification("लेन-देन नहीं मिला!", "error");
+          return;
+        }
+
+        currentTransactionId = id;
+
+        const monthsElapsed = calculateMonths(new Date(trans.date), new Date());
+        const totalInterest = calculateTotalInterest(trans);
+        const pendingInterest = totalInterest - trans.totalInterestPaid;
+
+        let warningHTML = "";
+        if (pendingInterest > 0) {
+          warningHTML = `
+                    <div class="warning-box">
+                        <h4 style="margin: 0 0 10px 0; color: #856404;">⚠️ चेतावनी!</h4>
+                        <p style="margin: 5px 0; font-size: 18px;"><strong>₹${pendingInterest.toFixed(
+                          2
+                        )} ब्याज बाकी है!</strong></p>
+                        <p style="margin: 10px 0; color: #856404;">अगर आप अभी बंद करेंगे तो बाकी ब्याज माफ हो जाएगा।</p>
+                    </div>
+                `;
+        } else {
+          warningHTML = `
+                    <div class="success-box">
+                        <h4 style="margin: 0 0 10px 0; color: #155724;">✓ सभी ब्याज चुकाया गया है</h4>
+                        <p style="margin: 0;">आप इस लेन-देन को सुरक्षित रूप से बंद कर सकते हैं।</p>
+                    </div>
+                `;
+        }
+
+        const content = document.getElementById("closeTransactionContent");
+        content.innerHTML = `
+                <div class="info-box">
+                    <h4 style="margin: 0 0 10px 0; color: #2196F3; font-size: 16px;">📋 ${
+                      trans.name
+                    }</h4>
+                    <div style="font-size: 13px;">
+                        <p style="margin: 5px 0;"><strong>प्रकार:</strong> ${
+                          trans.type === "lent"
+                            ? "📤 उधार दिया"
+                            : "📥 उधार लिया"
+                        }</p>
+                        <p style="margin: 5px 0;"><strong>मूल राशि:</strong> ₹${trans.amount.toFixed(
+                          2
+                        )}</p>
+                        <p style="margin: 5px 0;"><strong>ब्याज दर:</strong> ${
+                          trans.rate
+                        }%</p>
+                        <p style="margin: 5px 0;"><strong>कुल ब्याज:</strong> ₹${totalInterest.toFixed(
+                          2
+                        )}</p>
+                        <p style="margin: 5px 0;"><strong>जमा ब्याज:</strong> ₹${trans.totalInterestPaid.toFixed(
+                          2
+                        )}</p>
+                        <p style="margin: 5px 0; color: ${
+                          pendingInterest > 0 ? "#dc3545" : "#28a745"
+                        }; font-weight: bold;"><strong>बाकी ब्याज:</strong> ₹${pendingInterest.toFixed(
+          2
+        )}</p>
+                    </div>
+                </div>
+
+                ${warningHTML}
+
+                <p style="margin: 15px 0; text-align: center; font-size: 15px; font-weight: bold;">क्या आप इस लेन-देन को बंद करना चाहते हैं?</p>
+            `;
+
+        openModal("closeTransactionModal");
+      }
+
+      function confirmCloseTransaction() {
+        if (isSquareOff) {
+          confirmSquareOff();
+          return;
+        }
+
+        const trans = appData.interestTransactions.find(
+          (t) => t.id === currentTransactionId
+        );
+        if (!trans) return;
+
+        trans.active = false;
+        trans.closedDate = new Date().toISOString();
+        saveData();
+        renderInterestTransactions();
+        closeModal("closeTransactionModal");
+        showNotification("✓ लेन-देन बंद हो गया!", "success");
+      }
+
+      // Pay Principal
+      function payPrincipal(id) {
+        currentPaymentType = "principal";
+        const trans = appData.interestTransactions.find((t) => t.id === id);
+        if (!trans) {
+          showNotification("लेन-देन नहीं मिला!", "error");
+          return;
+        }
+
+        if (!trans.principalPayments) trans.principalPayments = [];
+        if (trans.totalPrincipalPaid === undefined)
+          trans.totalPrincipalPaid = 0;
+
+        const remainingPrincipal = trans.amount - trans.totalPrincipalPaid;
+
+        if (remainingPrincipal <= 0) {
+          showNotification("मूलधन पूरा चुकाया जा चुका है!", "success");
+          return;
+        }
+
+        currentTransactionId = id;
+
+        const content = document.getElementById("payInterestContent");
+        content.innerHTML = `
+                <div class="info-box">
+                    <h4 style="margin: 0 0 10px 0; color: #17a2b8;">💰 ${
+                      trans.name
+                    } - मूलधन जमा</h4>
+                    <p style="margin: 5px 0;"><strong>मूल राशि:</strong> ₹${trans.amount.toFixed(
+                      2
+                    )}</p>
+                    <p style="margin: 5px 0;"><strong>चुकाया:</strong> ₹${trans.totalPrincipalPaid.toFixed(
+                      2
+                    )}</p>
+                    <p style="margin: 5px 0; color: #dc3545; font-weight: bold;"><strong>बाकी:</strong> ₹${remainingPrincipal.toFixed(
+                      2
+                    )}</p>
+                </div>
+            `;
+
+        // Update input field properties
+        const inputField = document.getElementById("payInterestAmount");
+        inputField.max = remainingPrincipal.toFixed(2);
+        inputField.value = "";
+
+        // Update label
+        document.getElementById("paymentInputLabel").textContent =
+          "जमा करने की मूलधन राशि (₹)";
+        document
+          .getElementById("payInterestModal")
+          .querySelector(".modal-header h3").textContent = "💰 मूलधन जमा करें";
+        openModal("payInterestModal");
+      }
+
+      function confirmPayPrincipal() {
+        const amount = parseFloat(
+          document.getElementById("payInterestAmount").value
+        );
+        const trans = appData.interestTransactions.find(
+          (t) => t.id === currentTransactionId
+        );
+        if (!trans) return;
+
+        if (!amount || amount <= 0) {
+          showNotification("कृपया सही राशि दर्ज करें!", "error");
+          return;
+        }
+
+        const remainingPrincipal =
+          trans.amount - (trans.totalPrincipalPaid || 0);
+        if (amount > remainingPrincipal) {
+          showNotification("राशि बाकी मूलधन से ज्यादा नहीं हो सकती!", "error");
+          return;
+        }
+
+        if (!trans.principalPayments) trans.principalPayments = [];
+        trans.principalPayments.push({
+          date: new Date().toISOString(),
+          amount: amount,
+        });
+        trans.totalPrincipalPaid = (trans.totalPrincipalPaid || 0) + amount;
+
+        saveData();
+        renderInterestTransactions();
+        closeModal("payInterestModal");
+        showNotification(
+          `✓ ₹${amount.toFixed(2)} मूलधन जमा हो गया!`,
+          "success"
+        );
+      }
+
+      // Square Off - Settle Everything
+      function squareOff(id) {
+        isSquareOff = true;
+        const trans = appData.interestTransactions.find((t) => t.id === id);
+        if (!trans) {
+          showNotification("लेन-देन नहीं मिला!", "error");
+          return;
+        }
+
+        const monthsElapsed = calculateMonths(new Date(trans.date), new Date());
+        const totalInterest = calculateTotalInterest(trans);
+        const pendingInterest = totalInterest - (trans.totalInterestPaid || 0);
+        const pendingPrincipal = trans.amount - (trans.totalPrincipalPaid || 0);
+        const totalPending = pendingInterest + pendingPrincipal;
+
+        currentTransactionId = id;
+
+        const content = document.getElementById("closeTransactionContent");
+        content.innerHTML = `
+                <div class="success-box">
+                    <h4 style="margin: 0 0 10px 0; color: #28a745; font-size: 16px;">💰 ${
+                      trans.name
+                    } - स्क्वायर ऑफ</h4>
+                    <p style="margin: 5px 0; font-size: 13px;"><strong>मूल राशि:</strong> ₹${trans.amount.toFixed(
+                      2
+                    )}</p>
+                    <p style="margin: 5px 0; font-size: 13px;"><strong>बाकी मूलधन:</strong> ₹${pendingPrincipal.toFixed(
+                      2
+                    )}</p>
+                    <p style="margin: 5px 0; font-size: 13px;"><strong>कुल ब्याज:</strong> ₹${totalInterest.toFixed(
+                      2
+                    )}</p>
+                    <p style="margin: 5px 0; font-size: 13px;"><strong>बाकी ब्याज:</strong> ₹${pendingInterest.toFixed(
+                      2
+                    )}</p>
+                    <hr style="margin: 10px 0;">
+                    <p style="margin: 10px 0; font-size: 18px; font-weight: bold; color: #dc3545;"><strong>कुल बाकी राशि:</strong> ₹${totalPending.toFixed(
+                      2
+                    )}</p>
+                </div>
+                <p style="margin: 15px 0; text-align: center; font-size: 15px; font-weight: bold;">सभी बकाया राशि जमा करके लेन-देन बंद करें?</p>
+            `;
+
+        document
+          .getElementById("closeTransactionModal")
+          .querySelector(".modal-header h3").textContent = "💰 स्क्वायर ऑफ";
+        openModal("closeTransactionModal");
+      }
+
+      function confirmSquareOff() {
+        const trans = appData.interestTransactions.find(
+          (t) => t.id === currentTransactionId
+        );
+        if (!trans) return;
+
+        const monthsElapsed = calculateMonths(new Date(trans.date), new Date());
+        const totalInterest = calculateTotalInterest(trans);
+        const pendingInterest = totalInterest - (trans.totalInterestPaid || 0);
+        const pendingPrincipal = trans.amount - (trans.totalPrincipalPaid || 0);
+
+        // Pay all pending interest
+        if (pendingInterest > 0) {
+          if (!trans.interestPayments) trans.interestPayments = [];
+          trans.interestPayments.push({
+            date: new Date().toISOString(),
+            amount: pendingInterest,
+          });
+          trans.totalInterestPaid = totalInterest;
+        }
+
+        // Pay all pending principal
+        if (pendingPrincipal > 0) {
+          if (!trans.principalPayments) trans.principalPayments = [];
+          trans.principalPayments.push({
+            date: new Date().toISOString(),
+            amount: pendingPrincipal,
+          });
+          trans.totalPrincipalPaid = trans.amount;
+        }
+
+        // Close transaction
+        trans.active = false;
+        trans.closedDate = new Date().toISOString();
+
+        saveData();
+        renderInterestTransactions();
+        closeModal("closeTransactionModal");
+        showNotification("✓ स्क्वायर ऑफ पूरा हुआ! लेन-देन बंद।", "success");
+      }
+
+      // Notification System
+      function showNotification(message, type = "info") {
+        const notification = document.createElement("div");
+        notification.style.cssText = `
+                position: fixed;
+                top: 20px;
+                right: 20px;
+                padding: 20px 30px;
+                background: ${
+                  type === "success"
+                    ? "#28a745"
+                    : type === "error"
+                    ? "#dc3545"
+                    : "#2196F3"
+                };
+                color: white;
+                border-radius: 10px;
+                box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+                z-index: 10000;
+                font-size: 16px;
+                font-weight: bold;
+                animation: slideInRight 0.3s;
+            `;
+        notification.textContent = message;
+        document.body.appendChild(notification);
+
+        setTimeout(() => {
+          notification.style.animation = "slideOutRight 0.3s";
+          setTimeout(() => notification.remove(), 300);
+        }, 3000);
+      }
+
+      // Make functions globally accessible
+      window.payInterest = payInterest;
+      window.viewInterestHistory = viewInterestHistory;
+      window.closeTransaction = closeTransaction;
+      window.confirmPayInterest = confirmPayInterest;
+      window.confirmCloseTransaction = confirmCloseTransaction;
+      window.openModal = openModal;
+      window.closeModal = closeModal;
+      window.toggleClosedTransactions = toggleClosedTransactions;
+      window.payPrincipal = payPrincipal;
+      window.squareOff = squareOff;
+      window.fillPhoneFromName = fillPhoneFromName;
+      window.searchCustomer = searchCustomer;
+
+      function updateInterestStats() {
+        let totalLent = 0;
+        let totalBorrowed = 0;
+        let monthlyProfit = 0;
+
+        appData.interestTransactions
+          .filter((t) => t.active)
+          .forEach((trans) => {
+            // Calculate current principal (after payments)
+            const currentPrincipal =
+              trans.amount - (trans.totalPrincipalPaid || 0);
+
+            if (trans.type === "lent") {
+              totalLent += currentPrincipal;
+              monthlyProfit += (currentPrincipal * trans.rate) / 100;
+            } else {
+              totalBorrowed += currentPrincipal;
+              monthlyProfit -= (currentPrincipal * trans.rate) / 100;
+            }
+          });
+
+        document.getElementById("totalLent").textContent = totalLent.toFixed(0);
+        document.getElementById("totalBorrowed").textContent =
+          totalBorrowed.toFixed(0);
+        document.getElementById("monthlyProfit").textContent =
+          monthlyProfit.toFixed(0);
+      }
+
+      // Accounting
+      function updateAccountingStats() {
+        let totalSales = 0;
+        let totalReceived = 0;
+
+        appData.invoices.forEach((invoice) => {
+          totalSales += invoice.totals.grandTotal;
+          totalReceived += invoice.payment.received;
+        });
+
+        const totalPending = totalSales - totalReceived;
+
+        document.getElementById("totalSales").textContent =
+          totalSales.toFixed(0);
+        document.getElementById("totalReceived").textContent =
+          totalReceived.toFixed(0);
+        document.getElementById("totalPending").textContent =
+          totalPending.toFixed(0);
+      }
+
+      function generateReport() {
+        const fromDate = new Date(
+          document.getElementById("reportFromDate").value
+        );
+        const toDate = new Date(document.getElementById("reportToDate").value);
+
+        if (
+          !document.getElementById("reportFromDate").value ||
+          !document.getElementById("reportToDate").value
+        ) {
+          alert("कृपया तारीख चुनें! (Please select dates!)");
+          return;
+        }
+
+        const filteredInvoices = appData.invoices.filter((inv) => {
+          const invDate = new Date(inv.date);
+          return invDate >= fromDate && invDate <= toDate;
+        });
+
+        let totalSales = 0;
+        let totalReceived = 0;
+
+        filteredInvoices.forEach((inv) => {
+          totalSales += inv.totals.grandTotal;
+          totalReceived += inv.payment.received;
+        });
+
+        const resultDiv = document.getElementById("reportResult");
+        resultDiv.innerHTML = `
+                <div class="card">
+                    <h3>रिपोर्ट परिणाम (Report Results)</h3>
+                    <p><strong>अवधि:</strong> ${fromDate.toLocaleDateString(
+                      "hi-IN"
+                    )} से ${toDate.toLocaleDateString("hi-IN")}</p>
+                    <p><strong>कुल बिल:</strong> ${filteredInvoices.length}</p>
+                    <p><strong>कुल बिक्री:</strong> ₹${totalSales.toFixed(
+                      2
+                    )}</p>
+                    <p><strong>कुल प्राप्त:</strong> ₹${totalReceived.toFixed(
+                      2
+                    )}</p>
+                    <p><strong>बाकी:</strong> ₹${(
+                      totalSales - totalReceived
+                    ).toFixed(2)}</p>
+                </div>
+            `;
+      }
+
+      // Backup Functions
+      function createBackup() {
+        appData.lastBackup = new Date().toISOString();
+        saveData();
+        document.getElementById("lastBackup").textContent = new Date(
+          appData.lastBackup
+        ).toLocaleString("hi-IN");
+        console.log(
+          "बैकअप सफलतापूर्वक बनाया गया! (Backup created successfully!)"
+        );
+      }
+
+      function downloadBackup() {
+        const dataStr = JSON.stringify(appData, null, 2);
+        const blob = new Blob([dataStr], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = `jewellery-backup-${
+          new Date().toISOString().split("T")[0]
+        }.json`;
+        a.click();
+        URL.revokeObjectURL(url);
+        alert("बैकअप डाउनलोड हो गया! (Backup downloaded!)");
+      }
+
+      function restoreBackup(input) {
+        const file = input.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            try {
+              const data = JSON.parse(e.target.result);
+              if (
+                confirm(
+                  "क्या आप वाकई डेटा पुनर्स्थापित करना चाहते हैं? यह मौजूदा डेटा को बदल देगा।"
+                )
+              ) {
+                appData = data;
+                saveData();
+                loadData();
+                alert(
+                  "डेटा सफलतापूर्वक पुनर्स्थापित हो गया! (Data restored successfully!)"
+                );
+              }
+            } catch (error) {
+              alert("बैकअप फ़ाइल गलत है! (Invalid backup file!)");
+            }
+          };
+          reader.readAsText(file);
+        }
+      }
+
+      function clearAllData() {
+        if (
+          confirm(
+            "⚠️ चेतावनी! क्या आप सभी डेटा मिटाना चाहते हैं? यह क्रिया वापस नहीं की जा सकती!"
+          )
+        ) {
+          if (
+            confirm(
+              "क्या आप पूरी तरह से निश्चित हैं? सारा डेटा हमेशा के लिए खो जाएगा!"
+            )
+          ) {
+            localStorage.clear();
+            location.reload();
+          }
+        }
+      }
+
+      // Initialize on page load
+      window.onload = function () {
+        loadData();
+        document.getElementById("transactionDate").valueAsDate = new Date();
+
+        // Set report dates to current month
+        const today = new Date();
+        const firstDay = new Date(today.getFullYear(), today.getMonth(), 1);
+        document.getElementById("reportFromDate").valueAsDate = firstDay;
+        document.getElementById("reportToDate").valueAsDate = today;
+
+        // Listen for amount received changes
+        document
+          .getElementById("amountReceived")
+          .addEventListener("input", updateInvoiceSummary);
+        document
+          .getElementById("oldJewelleryAmount")
+          .addEventListener("input", updateInvoiceSummary);
+      };
+    </script>
+  </body>
+</html>
